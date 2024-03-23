@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modernize Free</title>
+    <title>Toko Besi Maju Jaya</title>
     <link rel="shortcut icon" type="image/png" href="assets/dahboard/images/logos/favicon.png" />
     <link rel="stylesheet" href="assets/dashboard/css/styles.min.css" />
 </head>

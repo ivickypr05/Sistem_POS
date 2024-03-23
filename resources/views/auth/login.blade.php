@@ -1,6 +1,52 @@
 @extends('layouts.authapp')
 
 @section('content')
+    <form method="POST" action="{{ route('login') }}" class="form login">
+        @csrf
+        <div class="form__field">
+            <label for="email">
+                <i class="bi bi-envelope"></i>
+                <span class="hidden">Alamat Email</span></label>
+            <input id="email" type="email" name="email" class="form__input  @error('email') is-invalid @enderror"
+                placeholder="Email" required autocomplete="email" autofocus>
+
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="form__field">
+
+            <label for="password">
+                <i class="bi bi-key-fill"></i>
+                <span class="hidden">Alamat password</span></label>
+            <input id="password" type="password" name="password"
+                class="form__input  @error('password') is-invalid @enderror" placeholder="password" required
+                autocomplete="current-password">
+
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="form__field row">
+            <input type="submit" value="Login">
+            @if (Route::has('password.request'))
+                <a class="text-light d-flex justify-content-end mt-2" href="{{ route('password.request') }}">
+                    {{ __('Lupa Password?') }}
+                </a>
+            @endif
+        </div>
+
+    </form>
+@endsection
+
+{{-- @extends('layouts.authapp')
+
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -77,4 +123,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}
