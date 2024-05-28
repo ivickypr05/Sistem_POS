@@ -26,101 +26,77 @@
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">UI COMPONENTS</span>
+                    <span class="hide-menu">MANAJEMEN</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-article"></i>
+                            <i class="ti ti-category"></i>
                         </span>
-                        <span class="hide-menu">Buttons</span>
+                        <span class="hide-menu">Kategori</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-alert-circle"></i>
+                            <i class="ti ti-package"></i>
                         </span>
-                        <span class="hide-menu">Alerts</span>
+                        <span class="hide-menu">Produk</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-cards"></i>
+                            <i class="ti ti-checkbox"></i>
                         </span>
-                        <span class="hide-menu">Card</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-file-description"></i>
-                        </span>
-                        <span class="hide-menu">Forms</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-typography"></i>
-                        </span>
-                        <span class="hide-menu">Typography</span>
+                        <span class="hide-menu">Produk Masuk</span>
                     </a>
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">AUTH</span>
+                    <span class="hide-menu">TRANSAKSI</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-login"></i>
+                            <i class="ti ti-shopping-cart"></i>
                         </span>
-                        <span class="hide-menu">Login</span>
+                        <span class="hide-menu">Penjualan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-user-plus"></i>
+                            <i class="ti ti-history"></i>
                         </span>
-                        <span class="hide-menu">Register</span>
+                        <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">EXTRA</span>
+                    <span class="hide-menu">PENGGUNA</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-mood-happy"></i>
+                            <i class="ti ti-user"></i>
                         </span>
-                        <span class="hide-menu">Icons</span>
+                        <span class="hide-menu">Data User</span>
                     </a>
                 </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">LAPORAN</span>
+                </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                    <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-report"></i>
                         </span>
-                        <span class="hide-menu">Sample Page</span>
+                        <span class="hide-menu">Laporan</span>
                     </a>
                 </li>
             </ul>
-            <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-                <div class="d-flex">
-                    <div class="unlimited-access-title me-3">
-                        <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
-                        <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank"
-                            class="btn btn-primary fs-2 fw-semibold lh-sm">Buy Pro</a>
-                    </div>
-                    <div class="unlimited-access-img">
-                        <img src="assets/dashboard/images/backgrounds/rocket.png" alt="" class="img-fluid">
-                    </div>
-                </div>
-            </div>
         </nav>
         <!-- End Sidebar navigation -->
     </div>
