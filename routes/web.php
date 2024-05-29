@@ -1,7 +1,10 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//category
+Route::get('/category/data', [CategoryController::class, 'data']);
+Route::resource('/category', CategoryController::class);
+
+//product
+Route::get('/product/data', [ProductController::class, 'data']);
+Route::resource('/product', ProductController::class);

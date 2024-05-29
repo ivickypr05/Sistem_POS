@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductControllers extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $products = Product::with('category')->get();
+        return view('dashboard.product.index', compact('products'));
     }
 
     /**

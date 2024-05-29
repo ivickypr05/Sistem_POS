@@ -3,7 +3,7 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="./index.html" class="text-nowrap logo-img">
-                <img src="assets/dashboard/images/logos/dark-logo.svg" width="180" alt="" />
+                <img src="assets/dashboard/images/logos/logotb.png" width="230" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -17,7 +17,7 @@
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('home') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -29,7 +29,7 @@
                     <span class="hide-menu">MANAJEMEN</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('category.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-category"></i>
                         </span>
@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('product.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-package"></i>
                         </span>
@@ -88,7 +88,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">LAPORAN</span>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item mb-5">
                     <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
                         <span>
                             <i class="ti ti-report"></i>

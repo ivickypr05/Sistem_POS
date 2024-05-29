@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryControllers extends Controller
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $categories = Category::get();
+        return view('dashboard.category.index', compact('categories'));
     }
 
     /**
