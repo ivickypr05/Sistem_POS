@@ -1,12 +1,19 @@
 @extends('layouts.app')
-
+@section('title', 'TBMJ | Halaman Produk')
 @section('content')
     <main>
         <div class="row">
-            <div class="card">
-                <div class="card-header">
+            {{-- breadcrumbs --}}
+            <div class="d-flex justify-content-end mb-1">
+                <i class="fa-solid fa-arrows-up-down-left-right mt-1 ms-2 mb-1 me-2"></i>
+                <a href="{{ route('home') }}" class="text-dark"> Dashboard</a>
+                <i class="fa-solid fa-chevron-right mt-1 ms-2 mb-1 me-2"></i>
+                <a href="{{ route('product.index') }}" class="text-dark"> Produk</a>
+            </div>
+            <div class="card mt-1">
+                <div class="card-header mt-2">
                     <h3 class="card-tittle">
-                        Daftar Produk
+                        <b>Daftar Produk</b>
                     </h3>
                 </div>
                 <br>
@@ -19,7 +26,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-responsive table-striped mt-1" id="datatablesSimple">
+                            <table class="table table-bordered mt-1" id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>

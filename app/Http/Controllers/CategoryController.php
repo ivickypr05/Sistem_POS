@@ -30,7 +30,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|min:2|max:50'
+        ]);
+        Category::create($validatedData);
+
+        return redirect()->route('category.index')->with('toast_success', 'Kategori Berhasil Ditambah');
     }
 
     /**
@@ -44,24 +49,38 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return response()->json($category);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validatedData = $request->validate([
+            'nama' => 'required|string|min:2|max:50',
+        ]);
+        $category = Category::find($id);
+        $category->update($validatedData);
+
+        return redirect()->route('category.index')->with('toast_success', 'Kategori Berhasil Diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // $products = Product::with('category')->where('category_id', $id)->count();
+        // if ($products >= 1) {
+        //     return redirect()->back()->with('toast_error', 'Maaf kategori tidak bisa dihapus karena masih terhubung dengan beberapa produk');
+        // } else {
+        Category::destroy($id);
+        return redirect('/category')->with('toast_success', 'Kategori berhasil dihapus ^_^');
+        // }
     }
 }
