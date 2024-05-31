@@ -30,7 +30,7 @@
                 <h4 class="modal-title" id="editForm"><b>Perbarui Kategori</b></h4>
             </div>
             <div class="modal-body">
-                <form id="editCategory" action="{{ route('category.update', $categories->id) }}" method="POST">
+                <form id="editCategory" action="" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
