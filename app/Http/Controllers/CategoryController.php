@@ -80,7 +80,7 @@ class CategoryController extends Controller
         //     return redirect()->back()->with('toast_error', 'Maaf kategori tidak bisa dihapus karena masih terhubung dengan beberapa produk');
         // } else {
         Category::destroy($id);
-        return redirect('/category')->with('toast_success', 'Kategori berhasil dihapus ^_^');
+        return redirect()->route('category.index')->with('toast_success', 'Kategori Berhasil Dihapus');
         // }
     }
 }

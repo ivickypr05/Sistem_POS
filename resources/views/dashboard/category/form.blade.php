@@ -9,7 +9,7 @@
                 <form id="addCategory" action="{{ route('category.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label class="mb-1 text-dark" for="nama">Nama Kategori</label>
+                        <label class="mb-1" for="nama">Nama Kategori</label>
                         <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
                 </form>
@@ -34,7 +34,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="edit_nama">Nama Kategori</label>
+                        <label class="mb-1" for="edit_nama">Nama Kategori</label>
                         <input type="text" class="form-control" id="edit_nama" name="nama" required>
                     </div>
                 </form>

@@ -55,12 +55,15 @@
                                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                                         data-target="#editForm" data-id="{{ $item->id }}"
                                                         data-name="{{ $item->nama }}"><i class="fas fa-edit"></i></button>
-                                                    <form action="{{ route('category.destroy', $item->id) }}" method="POST"
+
+                                                    <form id="deleteForm{{ $item->id }}"
+                                                        action="{{ route('category.destroy', $item->id) }}" method="POST"
                                                         style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-trash"></i></button>
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="event.preventDefault(); deleteConfirmation('{{ $item->id }}');">
+                                                            <i class="fas fa-trash"></i></button>
                                                     </form>
                                                 </center>
                                             </td>
@@ -82,17 +85,40 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    {{-- Update --}}
     <script>
         $(document).ready(function() {
             $('#editForm').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var nama = button.data('name'); // Ubah 'nama' menjadi 'name' sesuai dengan data attribute yang digunakan
+                var nama = button.data('name');
                 var modal = $(this);
                 modal.find('#editCategory').attr('action', '/category/' + id);
                 modal.find('#edit_nama').val(nama);
             });
         });
+    </script>
+
+    {{-- Delete Confirmation --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteConfirmation(itemId) {
+            Swal.fire({
+                title: 'Apakah yakin ingin menghapus?',
+                text: "Item yang terhapus tidak bisa dikembalikan lagi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan tindakan penghapusan
+                    document.getElementById('deleteForm' + itemId).submit();
+                }
+            });
+        }
     </script>
 
 @endsection
