@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,8 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-        return view('dashboard.product.index', compact('products'));
+        $categories = Category::get();
+        $products = Product::with('Category')->orderBy('updated_at', 'desc')->get();
+        return view('dashboard.product.index', compact('products', 'categories'));
     }
 
     /**
@@ -29,7 +31,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_produk' => 'required|string|min:2|max:10',
+            'nama' => 'required|string|min:2|max:50',
+            'stok' => 'required|integer',
+            'harga_beli' => 'required|integer|min:3',
+            'harga_jual' => 'required|integer|min:3',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+        Product::create($validatedData);
+        return redirect()->route('product.index')->with('toast_success', 'Produk Berhasil Ditambah');
     }
 
     /**
@@ -53,7 +64,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kode_produk' => 'required|string|min:2|max:10',
+            'nama' => 'required|string|min:2|max:50',
+            'stok' => 'required|integer',
+            'harga_beli' => 'required|integer|min:3',
+            'harga_jual' => 'required|integer|min:3',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+
+        $product = Product::find($id);
+        $product->update($validatedData);
+
+        return redirect()->route('product.index')->with('toast_success', 'Produk Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +84,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('product.index')->with('toast_success', 'Produk Berhasil Dihapus');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::orderBy('updated_at', 'desc')->get();
         return view('dashboard.category.index', compact('categories'));
     }
 
@@ -75,12 +76,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        // $products = Product::with('category')->where('category_id', $id)->count();
-        // if ($products >= 1) {
-        //     return redirect()->back()->with('toast_error', 'Maaf kategori tidak bisa dihapus karena masih terhubung dengan beberapa produk');
-        // } else {
-        Category::destroy($id);
-        return redirect()->route('category.index')->with('toast_success', 'Kategori Berhasil Dihapus');
-        // }
+        $products = Product::with('category')->where('category_id', $id)->count();
+        if ($products >= 1) {
+            return redirect()->back()->with('toast_error', 'Maaf kategori tidak bisa dihapus karena masih terhubung dengan beberapa produk');
+        } else {
+            Category::destroy($id);
+            return redirect()->route('category.index')->with('toast_success', 'Kategori Berhasil Dihapus');
+        }
     }
 }

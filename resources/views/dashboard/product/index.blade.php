@@ -19,14 +19,15 @@
                 <br>
                 <nav>
                     <div class='d-flex justify-content-start ms-2'>
-                        <a class="btn btn-success btn-md" href="/category/add"><i class="fa fa-plus"></i>+ Tambah</a>
+                        <a class="btn btn-success btn-md" data-toggle="modal" data-target="#addForm"><i
+                                class="fa fa-plus"></i> Tambah</a>
                     </div>
                 </nav>
                 <br>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered mt-1" id="datatablesSimple">
+                            <table class="table table-striped mt-1" id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>
@@ -70,12 +71,23 @@
                                             <td>{{ $item->category->nama }}</td>
                                             <td>
                                                 <center>
-                                                    <a href="/category/{{ $item->id }}/edit"
-                                                        class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
-                                                    <a href="/category/{{ $item->id }}/delete"
-                                                        class="btn btn-xs btn-danger"
-                                                        onclick="return confirm('Apa Anda Yakin Ingin Menghapus Data?');"><i
-                                                            class="fas fa-trash"></i></a>
+                                                    <button class="btn btn-warning btn-sm" data-id="{{ $item->id }}"
+                                                        data-kode_produk="{{ $item->kode_produk }}"
+                                                        data-nama="{{ $item->nama }}" data-stok="{{ $item->stok }}"
+                                                        data-harga_beli="{{ $item->harga_beli }}"
+                                                        data-harga_jual="{{ $item->harga_jual }}"
+                                                        data-category_id="{{ $item->category_id }}" data-toggle="modal"
+                                                        data-target="#editForm"><i class="fas fa-edit"></i></button>
+
+                                                    <form id="deleteForm{{ $item->id }}"
+                                                        action="{{ route('product.destroy', $item->id) }}" method="POST"
+                                                        style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="event.preventDefault(); deleteConfirmation('{{ $item->id }}');">
+                                                            <i class="fas fa-trash"></i></button>
+                                                    </form>
                                                 </center>
                                             </td>
                                         </tr>
@@ -87,4 +99,74 @@
                 </div>
             </div>
     </main>
+    @includeIf('dashboard.product.form')
+@endsection
+
+@section('scripts')
+    {{-- Create --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {{-- Update --}}
+    <script>
+        $(document).ready(function() {
+            $('#editForm').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Tombol yang memicu modal
+
+                // Ambil data dari atribut data-*
+                var id = button.data('id');
+                var kodeProduk = button.data('kode_produk');
+                var nama = button.data('nama');
+                var stok = button.data('stok');
+                var hargaBeli = button.data('harga_beli');
+                var hargaJual = button.data('harga_jual');
+                var categoryId = button.data('category_id');
+
+                // Temukan modal dan isi field
+                var modal = $(this);
+                modal.find('#editProduct').attr('action', '/product/' + id);
+                modal.find('#edit_kode_produk').val(kodeProduk);
+                modal.find('#edit_nama').val(nama);
+                modal.find('#edit_stok').val(stok);
+                modal.find('#edit_harga_beli').val(hargaBeli);
+                modal.find('#edit_harga_jual').val(hargaJual);
+                modal.find('#edit_category_id').val(categoryId);
+
+                // Pilih option yang sesuai dengan category_id
+                modal.find('#edit_category_id option').each(function() {
+                    if ($(this).val() == categoryId) {
+                        $(this).prop('selected', true);
+                    } else {
+                        $(this).prop('selected', false);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    {{-- Delete Confirmation --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteConfirmation(itemId) {
+            Swal.fire({
+                title: 'Apakah yakin ingin menghapus?',
+                text: "Item yang terhapus tidak bisa dikembalikan lagi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lakukan tindakan penghapusan
+                    document.getElementById('deleteForm' + itemId).submit();
+                }
+            });
+        }
+    </script>
+
+
 @endsection
