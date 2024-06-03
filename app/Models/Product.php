@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,8 +23,8 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-    // public function supplier(): HasMany
-    // {
-    //     return $this->hasMany(Supplier::class, 'supplier_id', 'id');
-    // }
+    public function inproduct(): HasMany
+    {
+        return $this->hasMany(Inproduct::class, 'product_id', 'id');
+    }
 }

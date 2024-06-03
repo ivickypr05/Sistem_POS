@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" type="image/png" href="assets/dahboard/images/logos/favicon.png" />
-    <link rel="stylesheet" href="assets/dashboard/css/styles.min.css" />
+    <link rel="shortcut icon" type="image/png" href="/assets/dahboard/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/assets/dashboard/css/styles.min.css" />
 
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     {{-- Data Tables --}}
@@ -33,15 +33,15 @@
     </div>
     @include('sweetalert::alert')
 
-    <script src="assets/dashboard/libs/jquery/dist/jquery.min.js"></script>
-    <script src="assets/dashboard/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/dashboard/js/sidebarmenu.js"></script>
-    <script src="assets/dashboard/js/app.min.js"></script>
-    <script src="assets/dashboard/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="assets/dashboard/libs/simplebar/dist/simplebar.js"></script>
-    <script src="assets/dashboard/js/dashboard.js"></script>
+    <script src="/assets/dashboard/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/dashboard/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/dashboard/js/sidebarmenu.js"></script>
+    <script src="/assets/dashboard/js/app.min.js"></script>
+    <script src="/assets/dashboard/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/assets/dashboard/libs/simplebar/dist/simplebar.js"></script>
+    <script src="/assets/dashboard/js/dashboard.js"></script>
 
-    <script src="assets/dashboard/js/datatables-simple-demo.js"></script>
+    <script src="/assets/dashboard/js/datatables-simple-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     @yield('scripts')

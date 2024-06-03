@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InproductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,7 @@ Route::resource('/category', CategoryController::class);
 //product
 Route::get('/product/data', [ProductController::class, 'data'])->name('product.data');
 Route::resource('/product', ProductController::class);
+
+//inproduct
+Route::get('/inproduct/data', [InproductController::class, 'data'])->name('inproduct.data');
+Route::resource('/inproduct', InproductController::class);
