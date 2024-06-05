@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Inproduct;
-use App\Models\Inproduct_detail;
 use Illuminate\Http\Request;
+use App\Models\Inproduct_detail;
 
-
-class InproductController extends Controller
+class Inproduct_detailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $inproducts = Inproduct::orderBy('updated_at', 'desc')->get();
-        return view('dashboard.inproduct.index', compact('inproducts'));
+        $products = Product::get();
+        $inproduct_details = Inproduct_detail::with('product')->get();
+        return view('dashboard.inproduct.add', compact('products', 'inproduct_details'));
     }
 
     /**
@@ -24,6 +23,7 @@ class InproductController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -31,9 +31,12 @@ class InproductController extends Controller
      */
     public function store(Request $request)
     {
-        $details = Inproduct_detail::with('product')->get();
-        $nama_toko = $request->input('nama_toko');
-        $total_item = 0;
+        $detail = new Inproduct_detail();
+        $detail->jumlah = 1;
+        $detail->product_id = $request->product_id;
+        $detail->save();
+
+        return redirect()->route('inproduct_detail.index')->with('success', 'Produk berhasil ditambahkan');
     }
 
     /**
@@ -65,6 +68,8 @@ class InproductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $detail = Inproduct_detail::findOrFail($id);
+        $detail->delete();
+        return redirect()->route('inproduct_detail.index')->with('toast_success', 'Produk Berhasil Dihapus');
     }
 }

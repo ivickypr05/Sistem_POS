@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Inproduct;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InproductController;
+use App\Http\Controllers\Inproduct_detailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +39,7 @@ Route::resource('/product', ProductController::class);
 //inproduct
 Route::get('/inproduct/data', [InproductController::class, 'data'])->name('inproduct.data');
 Route::resource('/inproduct', InproductController::class);
+
+//inproductdetail
+Route::get('/inproduct_detail/data', [Inproduct_detailController::class, 'data'])->name('inproduct_detail.data');
+Route::resource('/inproduct_detail', Inproduct_detailController::class);

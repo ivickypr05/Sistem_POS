@@ -12,7 +12,6 @@ class Inproduct_detail extends Model
     protected $fillable = [
         'jumlah',
         'product_id',
-        'inproduct_id'
     ];
 
     public function product(): BelongsTo

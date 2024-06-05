@@ -19,7 +19,8 @@
                 <br>
                 <nav>
                     <div class='d-flex justify-content-start ms-2'>
-                        <a href="{{ route('inproduct.create') }}" class="btn btn-success btn-md"><i class="fa fa-plus"></i>
+                        <a href="{{ route('inproduct_detail.index') }}" class="btn btn-success btn-md"><i
+                                class="fa fa-plus"></i>
                             Tambah</a>
                     </div>
                 </nav>
@@ -59,9 +60,9 @@
                                             <td>{{ $item->total_item }}</td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('inproduct.show') }}"
-                                                        class="btn btn-warning btn-sm"></a><i
-                                                        class="fas fa-eye"></i></button>
+                                                    <a href="{{ route('inproduct.show', $item->id) }}"
+                                                        class="btn btn-warning btn-sm"><i
+                                                            class="fas fa-eye"></i></a></button>
 
                                                     <form action="{{ route('inproduct.destroy', $item->id) }}"
                                                         method="POST" style="display:inline;">

@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::get();
-        $products = Product::with('Category')->orderBy('updated_at', 'desc')->get();
+        $products = Product::with('category')->orderBy('updated_at', 'desc')->get();
         return view('dashboard.product.index', compact('products', 'categories'));
     }
 

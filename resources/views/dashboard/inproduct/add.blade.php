@@ -23,18 +23,17 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="form-group row mb-3">
-                                <label for="kode_produk" class="col-lg-2 mt-2"><b>Kode Produk</b></label>
+                                <label for="kode_produk" class="col-lg-2 mt-2"><b>Tambah Produk</b></label>
                                 <div class="col-lg-5">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                         <span>
-                                            <button class="btn btn-info btn-flat" type="button"><i
-                                                    class="fa fa-arrow-right"></i></button>
+                                            <button class="btn btn-info btn-flat" type="button" data-toggle="modal"
+                                                data-target="#product_form"><i class="fa fa-plus"></i></button>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <table id="datatablesSimple" class="table table-striped mt-1">
+                            <table id="datatablesSimple" class="table mt-1">
                                 <thead>
                                     <tr>
                                         <th>
@@ -59,26 +58,23 @@
                                 </thead>
                                 <tbody>
                                     <?php $no = 1; ?>
-                                    @foreach ($inproducts as $item)
+                                    @foreach ($inproduct_details as $item)
                                         <tr>
                                             <th>
                                                 <center>{{ $no++ }}.</center>
                                             </th>
-                                            <td>{{ $item->product->kode_product }}</td>
+                                            <td>{{ $item->product->kode_produk }}</td>
                                             <td>{{ $item->product->nama }}</td>
                                             <td>{{ $item->product->category->nama }}</td>
                                             <td>
                                                 <input type="number" style="width:100px !important"
                                                     value="{{ $item->jumlah }}" class="form-control w-10" size="20"
-                                                    name="amount", min="1" required>
+                                                    name="jumlah", min="1" required>
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('inproduct.show') }}"
-                                                        class="btn btn-warning btn-sm"></a><i
-                                                        class="fas fa-eye"></i></button>
-
-                                                    <form action="{{ route('inproduct.destroy', $item->id) }}"
+                                                    <form id="deleteForm{{ $item->id }}"
+                                                        action="{{ route('inproduct_detail.destroy', $item->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
@@ -93,21 +89,50 @@
                                 </tbody>
                             </table>
                         </div>
+                        <form action="{{ route('inproduct.store') }}" method="POST" class="mt-3">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-7 offset-lg-5">
+                                    <div class="form-group row mb-3">
+                                        <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan Nama
+                                                Toko</b></label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" id="nama_toko" name="nama_toko"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3 ms-5">
+                                        <div class="col-lg-8"></div>
+                                        <div class="col-lg-3">
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>
+                                                Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('dashboard.inproduct.form')
 @endsection
 
 @section('scripts')
-    {{-- Delete Confirmation --}}
+    {{-- Create --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Delete Confirmation --}}
     <script>
         function deleteConfirmation(itemId) {
             Swal.fire({
                 title: 'Apakah yakin ingin menghapus?',
-                text: "Item yang terhapus tidak bisa dikembalikan lagi!",
+                text: "Produk yang terhapus tidak bisa dikembalikan lagi!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',
