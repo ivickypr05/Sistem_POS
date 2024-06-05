@@ -43,7 +43,7 @@
                                     <td>{{ $item->category->nama }}</td>
                                     <td>
                                         <center>
-                                            <form action="{{ route('inproduct_detail.store') }}" method="POST"
+                                            <form action="{{ route('incart.store') }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
                                                 <input type="hidden" name="inproduct_id" value="{{ $item->id }}">

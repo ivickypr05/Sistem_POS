@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inproduct_details', function (Blueprint $table) {
+        Schema::create('incarts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inproduct_id');
-            $table->foreign('inproduct_id')->references('id')->on('inproducts');
-            $table->string('nama');
-            $table->string('jumlah');
+            $table->foreignId('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inproduct_details');
+        Schema::dropIfExists('incarts');
     }
 };

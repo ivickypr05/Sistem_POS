@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InproductController;
-use App\Http\Controllers\Inproduct_detailController;
+use App\Http\Controllers\IncartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +41,5 @@ Route::get('/inproduct/data', [InproductController::class, 'data'])->name('inpro
 Route::resource('/inproduct', InproductController::class);
 
 //inproductdetail
-Route::get('/inproduct_detail/data', [Inproduct_detailController::class, 'data'])->name('inproduct_detail.data');
-Route::resource('/inproduct_detail', Inproduct_detailController::class);
+Route::get('/incart/data', [IncartController::class, 'data'])->name('incart.data');
+Route::resource('/incart', IncartController::class);

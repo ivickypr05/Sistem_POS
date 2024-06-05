@@ -58,7 +58,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $no = 1; ?>
-                                    @foreach ($inproduct_details as $item)
+                                    @foreach ($incarts as $item)
                                         <tr>
                                             <th>
                                                 <center>{{ $no++ }}.</center>
@@ -74,8 +74,8 @@
                                             <td>
                                                 <center>
                                                     <form id="deleteForm{{ $item->id }}"
-                                                        action="{{ route('inproduct_detail.destroy', $item->id) }}"
-                                                        method="POST" style="display:inline;">
+                                                        action="{{ route('incart.destroy', $item->id) }}" method="POST"
+                                                        style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"

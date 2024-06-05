@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Inproduct_detail extends Model
+class Incart extends Model
 {
     use HasFactory;
     protected $fillable = [
         'jumlah',
-        'inproduct_id',
+        'product_id',
     ];
 
-
-    public function inproduct(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Inproduct::class, 'iproduct_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

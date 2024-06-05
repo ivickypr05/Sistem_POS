@@ -19,8 +19,7 @@
                 <br>
                 <nav>
                     <div class='d-flex justify-content-start ms-2'>
-                        <a href="{{ route('inproduct_detail.index') }}" class="btn btn-success btn-md"><i
-                                class="fa fa-plus"></i>
+                        <a href="{{ route('incart.index') }}" class="btn btn-success btn-md"><i class="fa fa-plus"></i>
                             Tambah</a>
                     </div>
                 </nav>

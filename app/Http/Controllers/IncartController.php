@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Incart;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Models\Inproduct_detail;
 
-class Inproduct_detailController extends Controller
+class IncartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class Inproduct_detailController extends Controller
     public function index()
     {
         $products = Product::get();
-        $inproduct_details = Inproduct_detail::with('product')->get();
-        return view('dashboard.inproduct.add', compact('products', 'inproduct_details'));
+        $incarts = Incart::with('product')->get();
+        return view('dashboard.inproduct.add', compact('products', 'incarts'));
     }
 
     /**
@@ -31,12 +31,12 @@ class Inproduct_detailController extends Controller
      */
     public function store(Request $request)
     {
-        $detail = new Inproduct_detail();
-        $detail->jumlah = 1;
-        $detail->product_id = $request->product_id;
-        $detail->save();
+        $incart = new Incart();
+        $incart->jumlah = 1;
+        $incart->product_id = $request->product_id;
+        $incart->save();
 
-        return redirect()->route('inproduct_detail.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('incart.index')->with('success', 'Produk berhasil ditambahkan');
     }
 
     /**
@@ -68,8 +68,8 @@ class Inproduct_detailController extends Controller
      */
     public function destroy(string $id)
     {
-        $detail = Inproduct_detail::findOrFail($id);
-        $detail->delete();
-        return redirect()->route('inproduct_detail.index')->with('toast_success', 'Produk Berhasil Dihapus');
+        $incart = Incart::findOrFail($id);
+        $incart->delete();
+        return redirect()->route('incart.index')->with('toast_success', 'Produk Berhasil Dihapus');
     }
 }
