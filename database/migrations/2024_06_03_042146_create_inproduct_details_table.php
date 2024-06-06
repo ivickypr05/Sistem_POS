@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inproduct_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inproduct_id');
-            $table->foreign('inproduct_id')->references('id')->on('inproducts');
+            $table->foreign('inproduct_id')->references('id')->on('inproducts')->onDelete('cascade');
             $table->string('kode_produk');
             $table->string('nama');
             $table->string('jumlah');

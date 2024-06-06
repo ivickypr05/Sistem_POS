@@ -116,29 +116,10 @@ class InproductController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            // Temukan data inproduct yang akan dihapus
-            $inproduct = Inproduct::findOrFail($id);
+        // delete inproduct
+        $inproduct = Inproduct::findOrFail($id);
+        $inproduct->delete();
 
-            // Mengakses detail produk masuk
-            $inproduct_details = Inproduct_detail::where('inproduct_id', $inproduct->id)->get();
-
-            // dd($inproduct_details);
-            // Iterasi setiap detail produk masuk
-            foreach ($inproduct_details as $detail) {
-                // Perbarui stok produk dengan menambahkan kembali jumlah masuk dari detail produk
-                $product = Product::findOrFail($detail->product_id);
-                $product->stock += $detail->jumlah;
-                $product->save();
-            }
-
-            // Hapus inproduct dan detailnya
-            $inproduct->delete();
-            $inproduct_details->delete();
-
-            return redirect()->back()->with('success', 'Data produk masuk berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data produk masuk.');
-        }
+        return redirect()->back()->with('success', 'Data produk masuk berhasil dihapus.');
     }
 }
