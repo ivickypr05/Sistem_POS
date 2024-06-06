@@ -64,8 +64,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $product = Product::find($id);
         $validatedData = $request->validate([
-            'kode_produk' => 'required|string|min:2|max:10|unique:products',
+            'kode_produk' => 'required|string|min:2|max:10|unique:products,kode_produk,'.$product->id,
             'nama' => 'required|string|min:2|max:50',
             'stok' => 'required|integer',
             'harga_beli' => 'required|integer|min:3',
