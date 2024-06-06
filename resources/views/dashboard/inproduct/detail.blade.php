@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-chevron-right mt-1 ms-2 mb-1 me-2"></i>
                 <a href="{{ route('inproduct.index') }}" class="text-dark"> Produk Masuk</a>
                 <i class="fa-solid fa-chevron-right mt-1 ms-2 mb-1 me-2"></i>
-                <a href="{{ route('inproduct.create') }}" class="text-dark"> Tambah Produk Masuk</a>
+                <a href="{{ route('inproduct.show', $inproduct->id) }}" class="text-dark"> Detail Produk Masuk</a>
             </div>
             <div class="card mt-2">
                 <div class="card-body">
