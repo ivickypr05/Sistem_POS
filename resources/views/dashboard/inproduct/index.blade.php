@@ -63,8 +63,9 @@
                                                         class="btn btn-warning btn-sm"><i
                                                             class="fas fa-eye"></i></a></button>
 
-                                                    <form action="{{ route('inproduct.destroy', $item->id) }}"
-                                                        method="POST" style="display:inline;">
+                                                    <form id="deleteForm{{ $item->id }}"
+                                                        action="{{ route('inproduct.destroy', $item->id) }}" method="POST"
+                                                        style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"

@@ -43,3 +43,4 @@ Route::resource('/inproduct', InproductController::class);
 //inproductdetail
 Route::get('/incart/data', [IncartController::class, 'data'])->name('incart.data');
 Route::resource('/incart', IncartController::class);
+Route::delete('/incart/{id}', [IncartController::class, 'destroy'])->name('incart.destroy');

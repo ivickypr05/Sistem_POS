@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kode_produk' => 'required|string|min:2|max:10',
+            'kode_produk' => 'required|string|min:2|max:10|unique:products',
             'nama' => 'required|string|min:2|max:50',
             'stok' => 'required|integer',
             'harga_beli' => 'required|integer|min:3',
@@ -65,7 +65,7 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'kode_produk' => 'required|string|min:2|max:10',
+            'kode_produk' => 'required|string|min:2|max:10|unique:products',
             'nama' => 'required|string|min:2|max:50',
             'stok' => 'required|integer',
             'harga_beli' => 'required|integer|min:3',

@@ -14,7 +14,7 @@
             </div>
             <div class="card mt-1">
                 <div class="card-header mt-2">
-                    <h3 class="card-tittle">
+                    <h3>
                         <b>Tambah Produk Masuk</b>
                     </h3>
                 </div>
@@ -23,94 +23,94 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="form-group row mb-3">
-                                <label for="kode_produk" class="col-lg-2 mt-2"><b>Tambah Produk</b></label>
+                                <label for="kode_produk" class="col-lg-2 mt-2"><b>Daftar Produk</b></label>
                                 <div class="col-lg-5">
                                     <div class="input-group">
                                         <span>
                                             <button class="btn btn-info btn-flat" type="button" data-toggle="modal"
-                                                data-target="#product_form"><i class="fa fa-plus"></i></button>
+                                                data-target="#product_form"><i class="fa fa-eye"></i></button>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <table id="datatablesSimple" class="table mt-1">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <center>No</center>
-                                        </th>
-                                        <th>
-                                            <center> Kode Produk</center>
-                                        </th>
-                                        <th>
-                                            <center> Nama Produk</center>
-                                        </th>
-                                        <th>
-                                            <center> Kategori</center>
-                                        </th>
-                                        <th>
-                                            <center> Jumlah</center>
-                                        </th>
-                                        <th>
-                                            <center>Aksi</center>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1; ?>
-                                    @foreach ($incarts as $item)
+                            <form action="{{ route('inproduct.store') }}" method="POST" class="mt-3">
+                                @csrf
+                                <table id="datatablesSimple" class="table mt-1">
+                                    <thead>
                                         <tr>
                                             <th>
-                                                <center>{{ $no++ }}.</center>
+                                                <center>No</center>
                                             </th>
-                                            <td>{{ $item->product->kode_produk }}</td>
-                                            <td>{{ $item->product->nama }}</td>
-                                            <td>{{ $item->product->category->nama }}</td>
-                                            <td>
-                                                <input type="number" style="width:100px !important"
-                                                    value="{{ $item->jumlah }}" class="form-control w-10" size="20"
-                                                    name="jumlah", min="1" required>
-                                            </td>
-                                            <td>
-                                                <center>
-                                                    <form id="deleteForm{{ $item->id }}"
-                                                        action="{{ route('incart.destroy', $item->id) }}" method="POST"
-                                                        style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); deleteConfirmation('{{ $item->id }}');">
-                                                            <i class="fas fa-trash"></i></button>
-                                                    </form>
-                                                </center>
-                                            </td>
+                                            <th>
+                                                <center> Kode Produk</center>
+                                            </th>
+                                            <th>
+                                                <center> Nama Produk</center>
+                                            </th>
+                                            <th>
+                                                <center> Kategori</center>
+                                            </th>
+                                            <th>
+                                                <center> Jumlah</center>
+                                            </th>
+                                            <th>
+                                                <center>Aksi</center>
+                                            </th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <form action="{{ route('inproduct.store') }}" method="POST" class="mt-3">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-7 offset-lg-5">
-                                    <div class="form-group row mb-3">
-                                        <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan Nama
-                                                Toko</b></label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control" id="nama_toko" name="nama_toko"
-                                                required>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
+                                        @foreach ($incarts as $item)
+                                            <tr>
+                                                <th>
+                                                    <center>{{ $no++ }}.</center>
+                                                </th>
+                                                <td>{{ $item->product->kode_produk }}</td>
+                                                <td>{{ $item->product->nama }}</td>
+                                                <td>{{ $item->product->category->nama }}</td>
+                                                <td>
+                                                    <input type="number" style="width:100px !important"
+                                                        value="{{ $item->jumlah }}" class="form-control w-10" size="20"
+                                                        name="jumlah[{{ $item->id }}]" min="1" required>
+                                                </td>
+                                                <td>
+                                                    <center>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            onclick="deleteConfirmation('{{ $item->id }}')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-lg-7 offset-lg-5">
+                                        <div class="form-group row mb-3">
+                                            <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan
+                                                    Nama
+                                                    Toko</b></label>
+                                            <div class="col-lg-7">
+                                                <input type="text" class="form-control" id="nama_toko" name="nama_toko"
+                                                    required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row mb-3 ms-5">
-                                        <div class="col-lg-8"></div>
-                                        <div class="col-lg-3">
-                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>
-                                                Simpan</button>
+                                        <div class="form-group row mb-3 ms-5">
+                                            <div class="col-lg-8"></div>
+                                            <div class="col-lg-3">
+                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>
+                                                    Simpan</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                            <form id="deleteForm" method="POST" style="display:none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- Delete Confirmation --}}
@@ -141,10 +140,15 @@
                 cancelButtonColor: '#3085d6'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Lakukan tindakan penghapusan
-                    document.getElementById('deleteForm' + itemId).submit();
+                    deleteItem(itemId);
                 }
             });
+        }
+
+        function deleteItem(itemId) {
+            let deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = '/incart/' + itemId;
+            deleteForm.submit();
         }
     </script>
 @endsection

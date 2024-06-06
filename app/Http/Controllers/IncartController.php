@@ -31,6 +31,15 @@ class IncartController extends Controller
      */
     public function store(Request $request)
     {
+        // Cari incart berdasarkan product_id
+        $existingIncart = Incart::where('product_id', $request->product_id)->first();
+
+        // Jika produk sudah ada dalam incart, beri pesan kesalahan
+        if ($existingIncart) {
+            return redirect()->route('incart.index')->with('error', 'Tidak Bisa Menambah Produk Yang Sama');
+        }
+
+        // Jika produk belum ada dalam incart, tambahkan produk ke incart
         $incart = new Incart();
         $incart->jumlah = 1;
         $incart->product_id = $request->product_id;
@@ -38,6 +47,7 @@ class IncartController extends Controller
 
         return redirect()->route('incart.index')->with('success', 'Produk berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -70,6 +80,7 @@ class IncartController extends Controller
     {
         $incart = Incart::findOrFail($id);
         $incart->delete();
+
         return redirect()->route('incart.index')->with('toast_success', 'Produk Berhasil Dihapus');
     }
 }

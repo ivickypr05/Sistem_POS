@@ -10,13 +10,15 @@ class Inproduct_detail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'jumlah',
         'inproduct_id',
+        'kode_produk',
+        'nama',
+        'jumlah',
     ];
 
 
     public function inproduct(): BelongsTo
     {
-        return $this->belongsTo(Inproduct::class, 'iproduct_id', 'id');
+        return $this->belongsTo(Inproduct::class, 'inproduct_id', 'id');
     }
 }

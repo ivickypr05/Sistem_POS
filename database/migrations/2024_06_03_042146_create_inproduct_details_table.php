@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inproduct_id');
             $table->foreign('inproduct_id')->references('id')->on('inproducts');
+            $table->string('kode_produk');
             $table->string('nama');
             $table->string('jumlah');
             $table->timestamps();

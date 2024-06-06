@@ -63,7 +63,9 @@
                                             <th>
                                                 <center>{{ $no++ }}.</center>
                                             </th>
-                                            <td>{{ $item->kode_produk }}</td>
+                                            <td><span
+                                                    style="background-color: #6daaf0;; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->kode_produk }}</span>
+                                            </td>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->stok }}</td>
                                             <td>Rp{{ number_format($item->harga_beli) }}</td>
