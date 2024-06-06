@@ -23,15 +23,10 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="form-group row mb-3">
-                                <label for="kode_produk" class="col-lg-2 mt-2"><b>Daftar Produk</b></label>
-                                <div class="col-lg-5">
-                                    <div class="input-group">
-                                        <span>
-                                            <button class="btn btn-info btn-flat" type="button" data-toggle="modal"
-                                                data-target="#product_form"><i class="fa fa-eye"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
+                                <span>
+                                    <button class="btn btn-info btn-flat" type="button" data-toggle="modal"
+                                        data-target="#product_form"><i class="fa fa-eye me-2"></i> Daftar Produk</button>
+                                </span>
                             </div>
                             <form action="{{ route('inproduct.store') }}" method="POST" class="mt-3">
                                 @csrf
@@ -89,18 +84,17 @@
                                     <div class="col-lg-7 offset-lg-5">
                                         <div class="form-group row mb-3">
                                             <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan
-                                                    Nama
-                                                    Toko</b></label>
+                                                    Nama Toko</b></label>
                                             <div class="col-lg-7">
                                                 <input type="text" class="form-control" id="nama_toko" name="nama_toko"
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="form-group row mb-3 ms-5">
-                                            <div class="col-lg-8"></div>
-                                            <div class="col-lg-3">
-                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>
-                                                    Simpan</button>
+                                        <div class="form-group row mb-3">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-5">
+                                                <button type="submit" class="btn btn-success w-100"><i
+                                                        class="fa fa-save me-2"></i> Simpan Data</button>
                                             </div>
                                         </div>
                                     </div>
