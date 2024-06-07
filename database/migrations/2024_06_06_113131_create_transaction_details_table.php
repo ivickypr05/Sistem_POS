@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaction_id');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->change();
+            $table->string('kode_produk');
+            $table->string('nama');
+            $table->integer('harga_beli');
+            $table->integer('harga_jual');
+            $table->integer('jumlah');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

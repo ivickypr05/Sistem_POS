@@ -57,7 +57,7 @@
                     <span class="hide-menu">TRANSAKSI</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('cart.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-shopping-cart"></i>
                         </span>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('transaction.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-history"></i>
                         </span>

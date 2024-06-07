@@ -14,19 +14,19 @@
                                     <center>No</center>
                                 </th>
                                 <th>
-                                    <center>Kode Produk</center>
+                                    Kode Produk
                                 </th>
                                 <th>
-                                    <center>Nama Produk</center>
+                                    Nama Produk
                                 </th>
                                 <th>
-                                    <center>Stok</center>
+                                    Stok
                                 </th>
                                 <th>
-                                    <center>Kategori</center>
+                                    Kategori
                                 </th>
                                 <th>
-                                    <center>Aksi</center>
+                                    Aksi
                                 </th>
                             </tr>
                         </thead>
@@ -37,7 +37,9 @@
                                     <th>
                                         <center>{{ $no++ }}.</center>
                                     </th>
-                                    <td>{{ $item->kode_produk }}</td>
+                                    <td><span
+                                            style="background-color: #6daaf0;; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->kode_produk }}</span>
+                                    </td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->stok }}</td>
                                     <td>{{ $item->category->nama }}</td>
@@ -46,9 +48,8 @@
                                             <form action="{{ route('incart.store') }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
-                                                <input type="hidden" name="inproduct_id" value="{{ $item->id }}">
                                                 <input type="hidden" name="product_id" value="{{ $item->id }}">
-                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                <button type="submit" class="btn btn-success btn-sm">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </form>

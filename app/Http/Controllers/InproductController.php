@@ -82,7 +82,7 @@ class InproductController extends Controller
             $item->delete();
         }
 
-        return redirect()->route('inproduct.index')->with('success', 'Produk masuk berhasil ditambahkan.');
+        return redirect()->route('inproduct.index')->with('success', 'Produk Masuk Berhasil Ditambahkan.');
     }
 
     /**
@@ -116,10 +116,30 @@ class InproductController extends Controller
      */
     public function destroy(string $id)
     {
-        // delete inproduct
+        // Temukan entri Inproduct berdasarkan ID
         $inproduct = Inproduct::findOrFail($id);
+
+        // Ambil semua entri Inproduct_detail yang terkait dengan Inproduct ini
+        $inproduct_details = Inproduct_detail::where('inproduct_id', $id)->get();
+
+        // Loop melalui setiap entri Inproduct_detail untuk mengupdate stok produk
+        foreach ($inproduct_details as $detail) {
+            // Temukan produk terkait menggunakan kode produk
+            $product = Product::where('kode_produk', $detail->kode_produk)->first();
+            if ($product) {
+                // Kurangi stok produk sesuai jumlah di entri Inproduct_detail
+                $product->update([
+                    'stok' => $product->stok - $detail->jumlah
+                ]);
+            }
+
+            // Hapus entri Inproduct_detail
+            $detail->delete();
+        }
+
+        // Hapus entri Inproduct
         $inproduct->delete();
 
-        return redirect()->back()->with('success', 'Data produk masuk berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data Produk Masuk Berhasil Dihapus.');
     }
 }

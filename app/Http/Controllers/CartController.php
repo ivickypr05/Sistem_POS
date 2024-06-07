@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -11,7 +16,14 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::where('id', Auth::user()->id)->first();
+        $user_id = Auth::user()->id;
+        $products = Product::with('category')->get();
+        $carts = Cart::with('product')->where('user_id', $user_id)->get();
+        $total_harga = Cart::join('products', 'carts.product_id', '=', 'products.id')
+            ->where('user_id', $user_id)
+            ->sum(DB::raw('carts.jumlah * products.harga_jual'));
+        return view('dashboard.transaction.sale', compact('user', 'products', 'carts', 'total_harga'));
     }
 
     /**
@@ -27,7 +39,46 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $product = Product::find($request->product_id);
+
+        // Cari cart berdasarkan product_id
+        $existingCart = Cart::where('product_id', $request->product_id)->first();
+
+        // Jika produk sudah ada dalam Cart, beri pesan kesalahan
+        if ($existingCart) {
+            return redirect()->route('cart.index')->with('error', 'Tidak Bisa Menambah Produk Yang Sama');
+        }
+
+        // Pastikan stok tersedia
+        if ($product->stok <= 0) {
+            return redirect()->route('cart.index')->with('error', 'Stok produk tidak tersedia.');
+        }
+
+        // Mulai transaksi database
+        DB::beginTransaction();
+
+        try {
+            // Tambahkan produk ke keranjang
+            $cart = new Cart;
+            $cart->user_id = $user->id;
+            $cart->product_id = $request->product_id;
+            $cart->jumlah = 1;
+            $cart->save();
+
+            // Kurangi stok produk
+            $product->stok--;
+            $product->save();
+
+            // Commit transaksi database
+            DB::commit();
+
+            return redirect()->route('cart.index')->with('success', 'Produk Berhasil Ditambah');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+            return redirect()->route('cart.index')->with('error', 'Gagal Menambahkan Produk');
+        }
     }
 
     /**

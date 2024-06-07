@@ -60,7 +60,9 @@
                                                 <th>
                                                     <center>{{ $no++ }}.</center>
                                                 </th>
-                                                <td>{{ $item->product->kode_produk }}</td>
+                                                <td><span
+                                                        style="background-color: #6daaf0;; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->product->kode_produk }}</span>
+                                                </td>
                                                 <td>{{ $item->product->nama }}</td>
                                                 <td>{{ $item->product->category->nama }}</td>
                                                 <td>
@@ -80,31 +82,30 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="row">
-                                    <div class="col-lg-7 offset-lg-5">
-                                        <div class="form-group row mb-3">
-                                            <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan
-                                                    Nama Toko</b></label>
-                                            <div class="col-lg-7">
-                                                <input type="text" class="form-control" id="nama_toko" name="nama_toko"
-                                                    required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-3">
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-5">
-                                                <button type="submit" class="btn btn-success w-100"><i
-                                                        class="fa fa-save me-2"></i> Simpan Data</button>
-                                            </div>
-                                        </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-7 offset-lg-5">
+                                <div class="form-group row mb-3">
+                                    <label for="nama_toko" class="col-lg-4 col-form-label text-lg-right"><b>Masukan
+                                            Nama Toko</b></label>
+                                    <div class="col-lg-7">
+                                        <input type="text" class="form-control" id="nama_toko" name="nama_toko" required>
                                     </div>
                                 </div>
-                            </form>
-                            <form id="deleteForm" method="POST" style="display:none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                <div class="form-group row mb-3">
+                                    <div class="col-lg-4"></div>
+                                    <div class="col-lg-5">
+                                        <button type="submit" class="btn btn-success w-100"><i class="fa fa-save me-2"></i>
+                                            Simpan Data</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        </form>
+                        <form id="deleteForm" method="POST" style="display:none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </div>
                 </div>
             </div>
@@ -118,14 +119,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- Delete Confirmation --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function deleteConfirmation(itemId) {
             Swal.fire({
-                title: 'Apakah yakin ingin menghapus?',
-                text: "Produk yang terhapus tidak bisa dikembalikan lagi!",
+                title: 'Apakah yakin ingin menghapus Produk?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',

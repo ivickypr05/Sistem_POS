@@ -45,7 +45,7 @@ class IncartController extends Controller
         $incart->product_id = $request->product_id;
         $incart->save();
 
-        return redirect()->route('incart.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('incart.index')->with('success', 'Produk Berhasil Ditambahkan');
     }
 
 

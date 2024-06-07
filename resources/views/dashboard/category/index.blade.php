@@ -105,7 +105,7 @@
         function deleteConfirmation(itemId) {
             Swal.fire({
                 title: 'Apakah yakin ingin menghapus?',
-                text: "Item yang terhapus tidak bisa dikembalikan lagi!",
+                text: "Kategori yang terhapus tidak bisa dikembalikan lagi!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',
