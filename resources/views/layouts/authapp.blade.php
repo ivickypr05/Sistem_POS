@@ -46,8 +46,7 @@
                 </svg>
         </div>
     </div>
-</body>
-
+    @include('sweetalert::alert')
 </body>
 
 </html>

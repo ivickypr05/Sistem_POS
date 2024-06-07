@@ -38,11 +38,6 @@
         </div>
         <div class="form__field row">
             <input type="submit" value="Login">
-            @if (Route::has('password.request'))
-                <a class="text-light d-flex justify-content-end mt-2" href="{{ route('password.request') }}">
-                    {{ __('Lupa Password?') }}
-                </a>
-            @endif
         </div>
 
     </form>
