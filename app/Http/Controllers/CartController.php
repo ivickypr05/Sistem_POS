@@ -52,7 +52,7 @@ class CartController extends Controller
 
         // Pastikan stok tersedia
         if ($product->stok <= 0) {
-            return redirect()->route('cart.index')->with('error', 'Stok produk tidak tersedia.');
+            return redirect()->route('cart.index')->with('error', 'Stok Produk Tidak Tersedia.');
         }
 
         // Mulai transaksi database
@@ -102,7 +102,26 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cart = Cart::findOrFail($id);
+        $product = Product::findOrFail($cart->product_id);
+
+        if ($request->jumlah > $product->stok) {
+            return redirect()->back()->with('error', 'Maaf, stok tidak mencukupi');
+        }
+
+        $data = $request->validate(['jumlah' => 'required|min:1|max:' . $product->stok]);
+        $oldJumlah = $cart->jumlah;
+        $cart->update($data);
+
+        $difference = $request->jumlah - $oldJumlah;
+
+        if ($difference > 0) {
+            $product->decrement('stok', $difference);
+        } elseif ($difference < 0) {
+            $product->increment('stok', abs($difference));
+        }
+
+        return redirect('cart')->with('toast_success', 'Jumlah berhasil diubah');
     }
 
     /**
@@ -110,6 +129,11 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cart = Cart::findOrFail($id);
+        $product = Product::findOrFail($cart->product_id);
+        $product->increment('stok', $cart->jumlah);
+        $cart->delete();
+
+        return redirect()->route('cart.index')->with('toast_success', 'Produk Berhasil Dihapus');
     }
 }

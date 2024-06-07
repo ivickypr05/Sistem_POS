@@ -30,7 +30,9 @@
                             <div class="form-group row mb-3">
                                 <span>
                                     <button class="btn btn-info btn-flat" type="button" data-toggle="modal"
-                                        data-target="#product_form"><i class="fa fa-eye me-2"></i> Daftar Produk</button>
+                                        data-target="#product_form">
+                                        <i class="fa fa-eye me-2"></i> Daftar Produk
+                                    </button>
                                 </span>
                             </div>
                             <table id="datatablesSimple" class="table mt-1">
@@ -40,71 +42,67 @@
                                             <center>No</center>
                                         </th>
                                         <th>
-                                            <center> Kode Produk</center>
+                                            <center>Kode Produk</center>
                                         </th>
                                         <th>
-                                            <center> Nama Produk</center>
+                                            <center>Nama Produk</center>
                                         </th>
                                         <th>
-                                            <center> Kategori</center>
+                                            <center>Kategori</center>
                                         </th>
                                         <th>
-                                            <center> Jumlah</center>
+                                            <center>Jumlah</center>
                                         </th>
                                         <th>
-                                            <center> Harga</center>
+                                            <center>Harga</center>
                                         </th>
                                         <th>
-                                            <center> Sub Total</center>
+                                            <center>Sub Total</center>
                                         </th>
                                         <th>
-                                            <center> Edit</center>
+                                            <center>Edit</center>
                                         </th>
                                         <th>
-                                            <center> Hapus</center>
+                                            <center>Hapus</center>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1; ?>
                                     @foreach ($carts as $item)
-                                        <form action="{{ route('cart.update', $item->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <tr>
+                                        <tr>
+                                            <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
                                                 <th>
                                                     <center>{{ $no++ }}.</center>
                                                 </th>
                                                 <td><span
-                                                        style="background-color: #6daaf0;; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->product->kode_produk }}</span>
+                                                        style="background-color: #6daaf0; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->product->kode_produk }}</span>
                                                 </td>
                                                 <td>{{ $item->product->nama }}</td>
                                                 <td>{{ $item->product->category->nama }}</td>
-                                                <td>
-                                                    <input type="number" style="width:100px !important"
+                                                <td><input type="number" style="width:100px !important"
                                                         value="{{ $item->jumlah }}" class="form-control w-10" size="20"
-                                                        name="jumlah" min="1" required>
-                                                </td>
+                                                        name="jumlah" min="1" required></td>
                                                 <td>Rp{{ number_format($item->product->harga_jual) }}</td>
                                                 <td>Rp{{ number_format($item->product->harga_jual * $item->jumlah) }}</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-warning btn-sm"><i
-                                                            class=" fas fa-edit"></i></button>
-                                                </td>
-                                        </form>
-                                        <td>
-                                            <center>
-                                                <form id="deleteForm{{ $item->id }}"
-                                                    action="{{ route('cart.destroy', $item->id) }}" method="POST"
-                                                    style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="event.preventDefault(); deleteConfirmation('{{ $item->id }}');">
-                                                        <i class="fas fa-trash"></i></button>
-                                                </form>
-                                            </center>
-                                        </td>
+                                                <td><button type="submit" class="btn btn-warning btn-sm"><i
+                                                            class="fas fa-edit"></i></button></td>
+                                            </form>
+                                            <td>
+                                                <center>
+                                                    <form id="deleteForm{{ $item->id }}"
+                                                        action="{{ route('cart.destroy', $item->id) }}" method="POST"
+                                                        style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                            onclick="event.preventDefault(); deleteConfirmation('{{ $item->id }}');"><i
+                                                                class="fas fa-trash"></i></button>
+                                                    </form>
+                                                </center>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -114,7 +112,7 @@
                             <div class="col-lg-12">
                                 <div class="row mb-3">
                                     <div class="col-lg-6">
-                                        <div class="card bg-primary ">
+                                        <div class="card bg-primary">
                                             <div class="card-body">
                                                 <center>
                                                     <h2 class="text-light" id="total_harga"><b>Total Harga =
@@ -169,6 +167,7 @@
 
 @section('scripts')
     {{-- Create --}}
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -193,4 +192,20 @@
             });
         }
     </script>
+
+    {{-- Calculate Change --}}
+    <script>
+        $(document).ready(function() {
+            $('#total_bayar').on('input', function() {
+                var totalHarga = {{ $total_harga }};
+                var totalBayar = parseFloat($(this).val());
+                var kembalian = totalBayar - totalHarga;
+                if (isNaN(kembalian) || kembalian < 0) {
+                    kembalian = 0;
+                }
+                $('#kembalian_input').val('Rp' + kembalian.toLocaleString('id-ID'));
+            });
+        });
+    </script>
+
 @endsection
