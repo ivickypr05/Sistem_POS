@@ -112,7 +112,6 @@ class CartController extends Controller
         $data = $request->validate(['jumlah' => 'required|min:1|max:' . $product->stok]);
         $oldJumlah = $cart->jumlah;
         $cart->update($data);
-
         $difference = $request->jumlah - $oldJumlah;
 
         if ($difference > 0) {
@@ -120,8 +119,7 @@ class CartController extends Controller
         } elseif ($difference < 0) {
             $product->increment('stok', abs($difference));
         }
-
-        return redirect('cart')->with('toast_success', 'Jumlah berhasil diubah');
+        return redirect()->route('cart.index')->with('toast_success', 'Jumlah berhasil diubah');
     }
 
     /**

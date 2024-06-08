@@ -73,7 +73,6 @@
                                         <tr>
                                             <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                                 @csrf
-                                                @method('PUT')
                                                 <th>
                                                     <center>{{ $no++ }}.</center>
                                                 </th>
@@ -122,37 +121,41 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="form-group row mb-3 d-flex justify-content-end">
-                                            <label for="total_harga_input"
-                                                class="col-lg-3 col-form-label text-lg-right"><b>Total Harga</b></label>
-                                            <div class="col-lg-7">
-                                                <input type="text" class="form-control readonly-input"
-                                                    id="total_harga_input" name="total_harga"
-                                                    value="Rp{{ number_format($total_harga) }}" readonly>
+                                        <form action="{{ route('transaction.store') }}" method="POST">
+                                            @csrf
+                                            <div class="form-group row mb-3 d-flex justify-content-end">
+                                                <label for="total_harga_input"
+                                                    class="col-lg-3 col-form-label text-lg-right"><b>Total Harga</b></label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" class="form-control readonly-input"
+                                                        id="total_harga_input" name="total_harga"
+                                                        value="Rp{{ number_format($total_harga) }}" readonly>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row mb-3 d-flex justify-content-end">
-                                            <label for="total_bayar" class="col-lg-3 col-form-label text-lg-right"><b>Total
-                                                    Bayar</b></label>
-                                            <div class="col-lg-7">
-                                                <input type="number" class="form-control" id="total_bayar"
-                                                    name="total_bayar" min="0" required>
+                                            <div class="form-group row mb-3 d-flex justify-content-end">
+                                                <label for="jumlah_bayar"
+                                                    class="col-lg-3 col-form-label text-lg-right"><b>Total
+                                                        Bayar</b></label>
+                                                <div class="col-lg-7">
+                                                    <input type="number" class="form-control" id="jumlah_bayar"
+                                                        name="jumlah_bayar" min="0" required>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row mb-3 d-flex justify-content-end">
-                                            <label for="kembalian_input"
-                                                class="col-lg-3 col-form-label text-lg-right"><b>Kembalian</b></label>
-                                            <div class="col-lg-7">
-                                                <input type="text" class="form-control readonly-input"
-                                                    id="kembalian_input" name="kembalian" value="Rp0" readonly>
+                                            <div class="form-group row mb-3 d-flex justify-content-end">
+                                                <label for="kembalian_input"
+                                                    class="col-lg-3 col-form-label text-lg-right"><b>Kembalian</b></label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" class="form-control readonly-input"
+                                                        id="kembalian_input" name="kembalian" value="Rp0" readonly>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row mb-3 d-flex justify-content-end">
-                                            <div class="col-lg-7">
-                                                <button type="submit" class="btn btn-success w-100"><i
-                                                        class="fa fa-save me-2"></i> Simpan Data</button>
+                                            <div class="form-group row mb-3 d-flex justify-content-end">
+                                                <div class="col-lg-7">
+                                                    <button type="submit" class="btn btn-success w-100"><i
+                                                            class="fa fa-save me-2"></i> Simpan Data</button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +199,7 @@
     {{-- Calculate Change --}}
     <script>
         $(document).ready(function() {
-            $('#total_bayar').on('input', function() {
+            $('#jumlah_bayar').on('input', function() {
                 var totalHarga = {{ $total_harga }};
                 var totalBayar = parseFloat($(this).val());
                 var kembalian = totalBayar - totalHarga;
