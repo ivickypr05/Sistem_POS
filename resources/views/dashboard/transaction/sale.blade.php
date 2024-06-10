@@ -60,7 +60,7 @@
                                             <center>Sub Total</center>
                                         </th>
                                         <th>
-                                            <center>Hapus</center>
+                                            <center>Aksi</center>
                                         </th>
                                     </tr>
                                 </thead>
@@ -69,26 +69,29 @@
                                     @foreach ($carts as $item)
                                         <tr>
 
-                                                <th>
-                                                    <center>{{ $no++ }}.</center>
-                                                </th>
-                                                <td><span
-                                                        style="background-color: #6daaf0; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->product->kode_produk }}</span>
-                                                </td>
-                                                <td>{{ $item->product->nama }}</td>
-                                                <td>{{ $item->product->category->nama }}</td>
-                                                <td>
-                                                    <form action="{{ route('cart.update', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="d-flex">
-                                                            <input type="number" style="width:100px !important" value="{{ $item->jumlah }}" class="form-control w-10" size="20" name="jumlah" min="1" required>
-                                                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
-                                                        </div>
-                                                    </form>
-                                                </td>
-                                                <td>Rp{{ number_format($item->product->harga_jual) }}</td>
-                                                <td>Rp{{ number_format($item->product->harga_jual * $item->jumlah) }}</td>
+                                            <th>
+                                                <center>{{ $no++ }}.</center>
+                                            </th>
+                                            <td><span
+                                                    style="background-color: #6daaf0; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->product->kode_produk }}</span>
+                                            </td>
+                                            <td>{{ $item->product->nama }}</td>
+                                            <td>{{ $item->product->category->nama }}</td>
+                                            <td>
+                                                <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="d-flex">
+                                                        <input type="number" style="width:100px !important"
+                                                            value="{{ $item->jumlah }}" class="form-control w-10"
+                                                            size="20" name="jumlah" min="1" required>
+                                                        <button type="submit" class="ms-1 btn btn-sm btn-warning"><i
+                                                                class="fa fa-edit"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td>Rp{{ number_format($item->product->harga_jual) }}</td>
+                                            <td>Rp{{ number_format($item->product->harga_jual * $item->jumlah) }}</td>
                                             <td>
                                                 <center>
                                                     <form id="deleteForm{{ $item->id }}"
@@ -111,7 +114,7 @@
                             <div class="col-lg-12">
                                 <div class="row mb-3">
                                     <div class="col-lg-6">
-                                        <div class="card bg-primary">
+                                        <div class="card bg-muted">
                                             <div class="card-body">
                                                 <center>
                                                     <h2 class="text-light" id="total_harga"><b>Total Harga =

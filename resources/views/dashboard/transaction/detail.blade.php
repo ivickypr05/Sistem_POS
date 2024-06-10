@@ -20,12 +20,14 @@
                 </div>
                 <div class="card mt-4 mb-4 cetak-area">
                     <div class="card-body">
-                        <table class="col-4" class="table table-bordered table-striped mt-1">
+                        <h2><b>Toko Besi Maju Jaya</b></h2>
+                        <p>Jl. Pramuka, Kel. Argasunya, Kec. Harjamukti, kota Cirebon.</p>
+                        <table class="col-5" class="table table-bordered table-striped mt-1">
                             <tr>
                                 <td colspan="2">#{{ $transaction->invoice_nomor }}</td>
                             </tr>
                             <tr>
-                                <td>Nama User </td>
+                                <td>Nama Kasir </td>
                                 <td>: {{ $transaction->user->name }}</td>
                             </tr>
                             <tr>
@@ -57,13 +59,20 @@
                                                     style="background-color: #6daaf0; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->kode_produk }}</span>
                                             </td>
                                             <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->harga_jual }}</td>
+                                            <td>Rp{{ number_format($item->harga_jual) }}</td>
                                             <td>{{ $item->jumlah }}</td>
                                             <td> Rp{{ number_format($item->subtotal) }}</td>
                                         </tr>
                                     @endforeach
 
 
+                                    <tr>
+                                        <td colspan="5" align="right"><strong>Pajak : </strong></td>
+                                        <td align="right">
+                                            <strong>Rp0</strong>
+                                        </td>
+
+                                    </tr>
                                     <tr>
                                         <td colspan="5" align="right"><strong>Total Harga : </strong></td>
                                         <td align="right">
@@ -95,25 +104,25 @@
     </div>
 @endsection
 
-@push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Fungsi untuk mencetak area dengan class 'cetak-area'
-        function printArea() {
-            console.log("Hello world!");
-            var printContents = document.querySelector('.cetak-area').innerHTML;
-            var originalContents = document.body.innerHTML;
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk mencetak area dengan class 'cetak-area'
+            function printArea() {
+                console.log("Hello world!");
+                var printContents = document.querySelector('.cetak-area').innerHTML;
+                var originalContents = document.body.innerHTML;
 
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
 
-        // Menambahkan event listener pada tombol dengan class 'cetak'
-        $('.cetak').on('click', function() {
-            printArea();
+            // Menambahkan event listener pada tombol dengan class 'cetak'
+            $('.cetak').on('click', function() {
+                printArea();
+            });
         });
-    });
-</script>
+    </script>
 @endpush()

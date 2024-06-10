@@ -36,6 +36,9 @@
                                             <center> Total Harga</center>
                                         </th>
                                         <th>
+                                            <center> Jumlah Bayar</center>
+                                        </th>
+                                        <th>
                                             <center> Kembalian</center>
                                         </th>
                                         <th>
@@ -53,12 +56,12 @@
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->invoice_nomor }}</td>
                                             <td>Rp{{ number_format($item->total_harga) }}</td>
+                                            <td>Rp{{ number_format($item->jumlah_bayar) }}</td>
                                             <td>Rp{{ number_format($item->jumlah_bayar - $item->total_harga) }}</td>
                                             <td>
                                                 <center>
                                                     <a href="{{ route('transaction.show', $item->id) }}"
-                                                        class="btn btn-warning btn-sm"><i
-                                                            class="fas fa-eye"></i></a></button>
+                                                        class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a></button>
                                                 </center>
                                             </td>
                                         </tr>

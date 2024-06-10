@@ -60,8 +60,7 @@
                                             <td>
                                                 <center>
                                                     <a href="{{ route('inproduct.show', $item->id) }}"
-                                                        class="btn btn-warning btn-sm"><i
-                                                            class="fas fa-eye"></i></a></button>
+                                                        class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a></button>
 
                                                     <form id="deleteForm{{ $item->id }}"
                                                         action="{{ route('inproduct.destroy', $item->id) }}" method="POST"
