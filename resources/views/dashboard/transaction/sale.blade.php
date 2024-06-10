@@ -60,9 +60,6 @@
                                             <center>Sub Total</center>
                                         </th>
                                         <th>
-                                            <center>Edit</center>
-                                        </th>
-                                        <th>
                                             <center>Hapus</center>
                                         </th>
                                     </tr>
@@ -71,8 +68,7 @@
                                     <?php $no = 1; ?>
                                     @foreach ($carts as $item)
                                         <tr>
-                                            <form action="{{ route('cart.update', $item->id) }}" method="POST">
-                                                @csrf
+
                                                 <th>
                                                     <center>{{ $no++ }}.</center>
                                                 </th>
@@ -81,14 +77,18 @@
                                                 </td>
                                                 <td>{{ $item->product->nama }}</td>
                                                 <td>{{ $item->product->category->nama }}</td>
-                                                <td><input type="number" style="width:100px !important"
-                                                        value="{{ $item->jumlah }}" class="form-control w-10" size="20"
-                                                        name="jumlah" min="1" required></td>
+                                                <td>
+                                                    <form action="{{ route('cart.update', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="d-flex">
+                                                            <input type="number" style="width:100px !important" value="{{ $item->jumlah }}" class="form-control w-10" size="20" name="jumlah" min="1" required>
+                                                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </td>
                                                 <td>Rp{{ number_format($item->product->harga_jual) }}</td>
                                                 <td>Rp{{ number_format($item->product->harga_jual * $item->jumlah) }}</td>
-                                                <td><button type="submit" class="btn btn-warning btn-sm"><i
-                                                            class="fas fa-edit"></i></button></td>
-                                            </form>
                                             <td>
                                                 <center>
                                                     <form id="deleteForm{{ $item->id }}"
