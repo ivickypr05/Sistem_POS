@@ -95,24 +95,25 @@
     </div>
 @endsection
 
-@section('script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Fungsi untuk mencetak area dengan class 'cetak-area'
-            function printArea() {
-                var printContents = document.querySelector('.cetak-area').innerHTML;
-                var originalContents = document.body.innerHTML;
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Fungsi untuk mencetak area dengan class 'cetak-area'
+        function printArea() {
+            console.log("Hello world!");
+            var printContents = document.querySelector('.cetak-area').innerHTML;
+            var originalContents = document.body.innerHTML;
 
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
-            }
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
 
-            // Menambahkan event listener pada tombol dengan class 'cetak'
-            $('.cetak').on('click', function() {
-                printArea();
-            });
+        // Menambahkan event listener pada tombol dengan class 'cetak'
+        $('.cetak').on('click', function() {
+            printArea();
         });
-    </script>
-@endsection
+    });
+</script>
+@endpush()
