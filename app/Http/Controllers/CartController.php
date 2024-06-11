@@ -105,19 +105,19 @@ class CartController extends Controller
         $cart = Cart::findOrFail($id);
         $product = Product::findOrFail($cart->product_id);
 
-        if ($request->jumlah > $product->stok) {
+        if ($request->jumlah - 1 > $product->stok) {
             return redirect()->back()->with('error', 'Maaf, stok tidak mencukupi');
         }
 
         $data = $request->validate(['jumlah' => 'required|min:1|max:' . $product->stok]);
-        $oldJumlah = $cart->jumlah;
+        $oldJumlah = $cart->jumlah; // Mendapatkan jumlah sebelumnya
         $cart->update($data);
-        $difference = $request->jumlah - $oldJumlah;
+        $difference = $request->jumlah - $oldJumlah; // Menghitung selisih
 
         if ($difference > 0) {
-            $product->decrement('stok', $difference);
+            $product->decrement('stok', $difference); // Mengurangi stok jika selisih positif
         } elseif ($difference < 0) {
-            $product->increment('stok', abs($difference));
+            $product->increment('stok', abs($difference)); // Menambahkan stok jika selisih negatif
         }
         return redirect()->route('cart.index')->with('toast_success', 'Jumlah berhasil diubah');
     }

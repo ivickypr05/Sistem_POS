@@ -20,7 +20,7 @@
                 </div>
                 <div class="card mt-4 mb-4 cetak-area">
                     <div class="card-body">
-                        <h2><b>Toko Besi Maju Jaya</b></h2>
+                        <h2 class="mt-3"><b>Toko Besi Maju Jaya</b></h2>
                         <p>Jl. Pramuka, Kel. Argasunya, Kec. Harjamukti, kota Cirebon.</p>
                         <table class="col-5" class="table table-bordered table-striped mt-1">
                             <tr>
