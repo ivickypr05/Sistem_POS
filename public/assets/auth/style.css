@@ -148,16 +148,28 @@ input[type="submit"] {
     margin: 14px;
     margin: 0.875rem;
 }
-.input-wrapper {
+
+.form__field .input-wrapper {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+.form__field .input-wrapper .toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #4154f1;
 }
 
 .form__input {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    padding: 16px; /* Atur padding sesuai kebutuhan */
+    font-size: 16px; /* Atur ukuran font sesuai kebutuhan */
 }
 
 /* modules/login.css */

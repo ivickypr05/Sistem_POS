@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Inproduct;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -46,6 +46,10 @@ Route::resource('/incart', IncartController::class);
 //inproduct
 Route::get('/inproduct/data', [InproductController::class, 'data'])->name('inproduct.data');
 Route::resource('/inproduct', InproductController::class);
+
+//user
+Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
+Route::resource('/user', UserController::class);
 
 // PENJUALAN
 //cart
