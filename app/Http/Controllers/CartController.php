@@ -73,7 +73,7 @@ class CartController extends Controller
             // Commit transaksi database
             DB::commit();
 
-            return redirect()->route('cart.index')->with('success', 'Produk Berhasil Ditambah');
+            return redirect()->route('cart.index')->with('toast_success', 'Produk Berhasil Ditambah');
         } catch (\Exception $e) {
             // Rollback transaksi jika terjadi kesalahan
             DB::rollback();

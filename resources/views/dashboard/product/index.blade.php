@@ -71,7 +71,7 @@
                                             <td>Rp{{ number_format($item->harga_beli) }}</td>
                                             <td>Rp{{ number_format($item->harga_jual) }}</td>
                                             <td>{{ $item->category->nama }}</td>
-                                            <td>
+                                            <td style="width: 90px;">
                                                 <center>
                                                     <button class="btn btn-warning btn-sm" data-id="{{ $item->id }}"
                                                         data-kode_produk="{{ $item->kode_produk }}"
