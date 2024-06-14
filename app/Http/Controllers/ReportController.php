@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $reports = Transaction::with('detail_transaction')->get();
+        // validate the request
+        $request->validate([
+            'tanggal_awal' => 'required|date',
+            'tanggal_akhir' => 'required|date',
+        ]);
+
+        // Check if there is a start and end date request, then display data based on the request
+        if ($request->has('tanggal_awal') && $request->has('tanggal_akhir')) {
+            $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'),DB::raw('SUM(total_harga) as total_harga_harian'),DB::raw('SUM(laba) as total_laba_harian'))->whereBetween('tanggal', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
+            return view('dashboard.report.index', compact('reports'));
+        }
+
+        $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'),DB::raw('SUM(total_harga) as total_harga_harian'),DB::raw('SUM(laba) as total_laba_harian'))->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
         return view('dashboard.report.index', compact('reports'));
     }
 

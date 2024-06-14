@@ -46,19 +46,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $total_laba_kotor = 0;
+                                    @endphp
                                     @foreach ($reports as $item)
+                                        @php
+                                            $total_laba_kotor += $item->total_laba_harian;
+                                        @endphp
                                         <tr>
                                             <th>
-                                                {{-- <center>{{ date('d M Y', strtotime($item->created_at)) }}</center> --}}
+                                                <center>{{ $item->tanggal }}</center>
                                             </th>
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                                <center>{{ $item->total_harga_harian }}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{ $item->total_laba_harian }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5" class="text-end"><strong>Total Laba Kotor :</strong></td>
+                                        <td colspan="5" class="text-end"><strong>Total Laba Kotor : {{ $total_laba_kotor }}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

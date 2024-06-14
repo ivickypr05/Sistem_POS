@@ -6,22 +6,23 @@
                 <h4 class="modal-title" id="periodeForm"><b>Pilih Periode</b></h4>
             </div>
             <div class="modal-body">
-                <form id="addPeriode" action="{{ route('report.store') }}" method="POST">
+                <form id="addPeriode" action="{{ route('report.index') }}" method="POST">
                     @csrf
+                    @method('POST')
                     <div class="form-group">
-                        <label class="mb-1" for="awal">Periode Awal</label>
-                        <input type="date" class="form-control mb-2" id="awal" name="awal" required>
+                        <label class="mb-1" for="tanggal_awal">Periode Awal</label>
+                        <input type="date" class="form-control mb-2" id="tanggal_awal" name="tanggal_awal" required>
                     </div>
                     <div class="form-group">
-                        <label class="mb-1" for="akhir">Periode Akhir</label>
-                        <input type="date" class="form-control" id="akhir" name="akhir" required>
+                        <label class="mb-1" for="tanggal_akhir">Periode Akhir</label>
+                        <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir" required>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary" form="addPeriode">Simpan</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

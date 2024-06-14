@@ -44,9 +44,10 @@ class TransactionController extends Controller
         //     return redirect()->back()->with('error', 'Produk dalam keranjang tidak ditemukan');
         // }
         $total_harga = 0;
-
+        $laba = 0;
         foreach ($carts as $cart) {
             $total_harga += $cart->product->harga_jual * $cart->jumlah;
+            $laba += ($cart->product->harga_jual - $cart->product->harga_beli) * $cart->jumlah;
         }
         // dd($total_harga);
 
@@ -55,7 +56,9 @@ class TransactionController extends Controller
                 'user_id' => Auth::user()->id,
                 'invoice_nomor' => 'Invoice - ' . rand(1000, 9999),
                 'total_harga' => $total_harga,
-                'jumlah_bayar' => $jumlah_bayar
+                'jumlah_bayar' => $jumlah_bayar,
+                'laba' => $laba,
+                'tanggal' => date('Y-m-d')
             ]);
 
             foreach ($carts as $cart) {

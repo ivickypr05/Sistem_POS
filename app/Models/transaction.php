@@ -15,6 +15,8 @@ class Transaction extends Model
         'invoice_nomor',
         'total_harga',
         'jumlah_bayar',
+        'tanggal',
+        'laba'
     ];
 
     public function user(): BelongsTo

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('invoice_nomor');
             $table->integer('total_harga');
             $table->integer('jumlah_bayar');
+            $table->date('tanggal');
+            $table->integer('laba');
             $table->timestamps();
         });
     }
