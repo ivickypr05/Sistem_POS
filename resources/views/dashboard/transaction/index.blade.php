@@ -53,7 +53,7 @@
                                             <th>
                                                 <center>{{ $no++ }}.</center>
                                             </th>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ date('d M Y', strtotime($item->created_at)) }}</td>
                                             <td>{{ $item->invoice_nomor }}</td>
                                             <td>Rp{{ number_format($item->total_harga) }}</td>
                                             <td>Rp{{ number_format($item->jumlah_bayar) }}</td>

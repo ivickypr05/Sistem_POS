@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncartController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InproductController;
@@ -59,3 +60,7 @@ Route::resource('/cart', CartController::class);
 //transaction
 Route::get('/transaction/data', [TransactionController::class, 'data'])->name('transaction.data');
 Route::resource('/transaction', TransactionController::class);
+
+//Report
+Route::get('/report/data', [ReportController::class, 'data'])->name('report.data');
+Route::resource('/report', ReportController::class);

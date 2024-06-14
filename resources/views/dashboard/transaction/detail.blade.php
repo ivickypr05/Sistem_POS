@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'TBMJ | Halaman Detail Riwayat Transaksi')
-
 @section('content')
     <div class="row">
         {{-- breadcrumbs --}}
@@ -33,7 +31,8 @@
                                 <td><strong>Nama Kasir:</strong>&emsp; {{ $transaction->user->name }}</td>
                             </tr>
                             <tr>
-                                <td><strong>Tanggal Transaksi:</strong>&emsp; {{ $transaction->created_at }}</td>
+                                <td><strong>Tanggal Transaksi:</strong>&emsp;
+                                    {{ date('d M Y | H:i:s ', strtotime($transaction->created_at)) }}</td>
                             </tr>
                         </table>
                         <div class="table-responsive">

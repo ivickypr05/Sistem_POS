@@ -54,7 +54,7 @@
                                             <th>
                                                 <center>{{ $no++ }}.</center>
                                             </th>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ date('d M Y', strtotime($item->created_at)) }}</td>
                                             <td>{{ $item->nama_toko }}</td>
                                             <td>{{ $item->total_item }}</td>
                                             <td>

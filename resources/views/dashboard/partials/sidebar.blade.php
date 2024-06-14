@@ -89,7 +89,7 @@
                     <span class="hide-menu">LAPORAN</span>
                 </li>
                 <li class="sidebar-item mb-5">
-                    <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('report.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-report"></i>
                         </span>
