@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'TBMJ | Halaman Detail Riwayat Transaksi')
+
 @section('content')
     <div class="row">
         {{-- breadcrumbs --}}
@@ -14,115 +16,222 @@
         <div class="card mt-2">
             <div class="card-body">
                 <h3><i class="fa fa-shopping-cart me-2"></i><b>Detail Transaksi</b></h3>
-                {{-- <p align="right">Tanggal Pesan : {{ $transaction->created_at }}</p> --}}
                 <div class="mt-3 d-flex justify-content-start">
-                    <button class="cetak btn btn-success"><i class="fa-solid fa-print"></i> Cetak</button>
+                    <button class="cetak-kecil btn btn-success me-2"><i class="fa-solid fa-print"></i> Cetak Kecil</button>
+                    <button class="cetak-besar btn btn-primary"><i class="fa-solid fa-print"></i> Cetak Besar</button>
                 </div>
                 <div class="card mt-4 mb-4 cetak-area">
                     <div class="card-body">
-                        <h2 class="mt-3"><b>Toko Besi Maju Jaya</b></h2>
-                        <p>Jl. Pramuka, Kel. Argasunya, Kec. Harjamukti, kota Cirebon.</p>
-                        <table class="col-5" class="table table-bordered table-striped mt-1">
+                        <h2 class="mt-3 text-center"><b>Toko Besi Maju Jaya</b></h2>
+                        <p class="text-center">Jl.Pramuka, Kel.Argasunya, Kec.Harjamukti, Cirebon.</p>
+                        <br>
+                        <table class="table mt-1">
                             <tr>
-                                <td colspan="2">#{{ $transaction->invoice_nomor }}</td>
+                                <td><strong>Invoice:</strong>&emsp; #{{ $transaction->invoice_nomor }}</td>
                             </tr>
                             <tr>
-                                <td>Nama Kasir </td>
-                                <td>: {{ $transaction->user->name }}</td>
+                                <td><strong>Nama Kasir:</strong>&emsp; {{ $transaction->user->name }}</td>
                             </tr>
                             <tr>
-                                <td>Tanggal Transaksi </td>
-                                <td>: {{ $transaction->created_at }}</td>
+                                <td><strong>Tanggal Transaksi:</strong>&emsp; {{ $transaction->created_at }}</td>
                             </tr>
                         </table>
-                        <br>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <center>
-                                            <th>No</th>
-                                            <th>Kode Produk</th>
-                                            <th>Nama Produk</th>
-                                            <th>Harga</th>
-                                            <th>Jumlah</th>
-                                            <th>Sub Total</th>
-                                        </center>
+                                        <th>No</th>
+                                        <th>Produk</th>
+                                        <th>Harga</th>
+                                        <th>Jumlah</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1; ?>
-                                    @foreach ($transaction_detail as $item)
+                                    @foreach ($transaction_detail as $index => $item)
                                         <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td><span
-                                                    style="background-color: #6daaf0; color: #fff; padding: 5px; border-radius: 0.25rem;">{{ $item->kode_produk }}</span>
-                                            </td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>Rp{{ number_format($item->harga_jual) }}</td>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td style="width: 100%; white-space: normal;">{{ $item->nama }}</td>
+                                            <td>Rp{{ number_format($item->harga_jual, 0, ',', '.') }}</td>
                                             <td>{{ $item->jumlah }}</td>
-                                            <td> Rp{{ number_format($item->subtotal) }}</td>
+                                            <td>Rp{{ number_format($item->subtotal, 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
-
-
-                                    <tr>
-                                        <td colspan="5" align="right"><strong>Pajak : </strong></td>
-                                        <td align="right">
-                                            <strong>Rp0</strong>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5" align="right"><strong>Total Harga : </strong></td>
-                                        <td align="right">
-                                            <strong>Rp{{ number_format($transaction->total_harga) }}</strong>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5" align="right"><strong>Total Pembayaran :</strong></td>
-                                        <td align="right">
-                                            <strong>Rp{{ number_format($transaction->jumlah_bayar) }}</strong>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5" align="right"><strong>Kembalian :</strong></td>
-                                        <td align="right">
-                                            <strong>Rp{{ number_format($transaction->jumlah_bayar - $transaction->total_harga) }}</strong>
-                                        </td>
-
-                                    </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Pajak:</strong></td>
+                                        <td class="text-end"><strong>Rp0</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Total Harga:</strong></td>
+                                        <td class="text-end">
+                                            <strong>Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Total Pembayaran:</strong></td>
+                                        <td class="text-end">
+                                            <strong>Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Kembalian:</strong></td>
+                                        <td class="text-end">
+                                            <strong>Rp{{ number_format($transaction->jumlah_bayar - $transaction->total_harga, 0, ',', '.') }}</strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
+                <iframe id="print-frame" style="display:none;"></iframe>
             </div>
         </div>
     </div>
 @endsection
 
+@push('style')
+    <style>
+        @media print {
+            body {
+                width: 58mm;
+                margin: 0;
+                padding: 0;
+                font-size: 10px;
+            }
+
+            .cetak-area {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            table,
+            th,
+            td {
+                border: none;
+                font-size: 10px;
+            }
+
+            .table-responsive {
+                overflow: hidden;
+            }
+
+            .card,
+            .card-body {
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .table {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .btn,
+            .no-print {
+                display: none;
+            }
+
+            h2,
+            p {
+                text-align: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            tfoot tr td {
+                border-top: 1px dashed #000;
+            }
+
+            /* Menyesuaikan lebar kolom "Produk" untuk cetak kecil */
+            .table tbody td:nth-child(2) {
+                width: 100%;
+                /* Sesuaikan lebarnya sesuai kebutuhan */
+                white-space: normal;
+                /* Memastikan teks dapat mengalir sesuai kebutuhan */
+            }
+
+            /* Penyesuaian pada cetak besar */
+            @media print and (orientation: landscape) {
+                body {
+                    width: 210mm;
+                    height: 297mm;
+                    font-size: 14px;
+                    /* Memperbesar font pada cetak besar */
+                }
+
+                .table,
+                th,
+                td {
+                    border: 1px solid #ddd;
+                    font-size: 14px;
+                    /* Memperbesar font pada tabel */
+                }
+            }
+        }
+    </style>
+@endpush
+
 @push('script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Fungsi untuk mencetak area dengan class 'cetak-area'
-            function printArea() {
-                console.log("Hello world!");
+            function printArea(printSize) {
                 var printContents = document.querySelector('.cetak-area').innerHTML;
-                var originalContents = document.body.innerHTML;
+                var printFrame = document.getElementById('print-frame').contentWindow;
 
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
+                printFrame.document.open();
+                printFrame.document.write(`
+                    <html>
+                    <head>
+                        <style>
+                            body {
+                                ${printSize === 'kecil' ? 'width: 58mm;' : 'width: 210mm; height: 297mm;'}
+                                margin: 0;
+                                padding: 0;
+                                font-size: ${printSize === 'kecil' ? '10px;' : '14px;'} /* Memperbesar font pada cetak besar */
+                            }
+                            table, th, td {
+                                border: ${printSize === 'kecil' ? 'none;' : '1px solid #ddd;'}
+                                font-size: ${printSize === 'kecil' ? '10px;' : '14px;'} /* Memperbesar font pada tabel */
+                            }
+                            .table {
+                                width: 100%;
+                                margin: 0;
+                                padding: 0;
+                            }
+                            h2, p {
+                                text-align: center;
+                                margin: 0;
+                                padding: 0;
+                            }
+                            tfoot tr td {
+                                border-top: 1px dashed #000;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        ${printContents}
+                    </body>
+                    </html>
+                `);
+                printFrame.document.close();
+                printFrame.focus();
+                printFrame.print();
             }
 
-            // Menambahkan event listener pada tombol dengan class 'cetak'
-            $('.cetak').on('click', function() {
-                printArea();
+            $('.cetak-kecil').on('click', function() {
+                printArea('kecil');
+            });
+
+            $('.cetak-besar').on('click', function() {
+                printArea('besar');
             });
         });
     </script>
-@endpush()
+@endpush
