@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -15,20 +16,46 @@ class ReportController extends Controller
     {
         // validate the request
         $request->validate([
-            'tanggal_awal' => 'required|date',
-            'tanggal_akhir' => 'required|date',
+            'tanggal_awal' => 'date',
+            'tanggal_akhir' => 'date',
         ]);
 
-        // Check if there is a start and end date request, then display data based on the request
+
         if ($request->has('tanggal_awal') && $request->has('tanggal_akhir')) {
-            $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'),DB::raw('SUM(total_harga) as total_harga_harian'),DB::raw('SUM(laba) as total_laba_harian'))->whereBetween('tanggal', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
+            $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('SUM(total_harga) as total_harga_harian'), DB::raw('SUM(laba) as total_laba_harian'))->whereBetween('tanggal', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
             return view('dashboard.report.index', compact('reports'));
         }
 
-        $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'),DB::raw('SUM(total_harga) as total_harga_harian'),DB::raw('SUM(laba) as total_laba_harian'))->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
+        $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('SUM(total_harga) as total_harga_harian'), DB::raw('SUM(laba) as total_laba_harian'))->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
         return view('dashboard.report.index', compact('reports'));
     }
 
+    public function exportPDF()
+    {
+        // Ambil data laporan dari database atau sumber lain
+        $reports = Transaction::select(
+            DB::raw('DATE(tanggal) as tanggal'),
+            DB::raw('SUM(total_harga) as total_harga_harian'),
+            DB::raw('SUM(laba) as total_laba_harian')
+        )
+            ->groupBy(DB::raw('DATE(tanggal)'))
+            ->orderBy('tanggal')
+            ->get();
+
+        // Mengkonversi data menjadi array untuk diteruskan ke tampilan Blade
+        $data = [
+            'reports' => $reports
+        ];
+
+        // Logika untuk menghasilkan file PDF
+        $pdf = PDF::loadView('dashboard.report.pdf', $data);
+
+        // Mengirimkan file PDF ke browser (menggunakan stream)
+        return $pdf->stream('laporan.pdf', [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="laporan.pdf"'
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

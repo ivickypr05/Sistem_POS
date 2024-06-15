@@ -23,8 +23,9 @@
                                 class="fa fa-calendar-days"></i>
                             Pilih Periode</button>
 
-                        <button class="btn btn-danger btn-md"><i class="fa fa-print"></i>
-                            Export PDF</button>
+                        <button class="btn btn-danger btn-md" onclick="exportPDF()"><i class="fa fa-print"></i> Export
+                            PDF</button>
+
                     </div>
                 </nav>
                 <br>
@@ -55,20 +56,22 @@
                                         @endphp
                                         <tr>
                                             <th>
-                                                <center>{{ $item->tanggal }}</center>
+                                                <center>{{ date('d M Y', strtotime($item->tanggal)) }}</>
+                                                </center>
                                             </th>
                                             <td>
-                                                <center>{{ $item->total_harga_harian }}</center>
+                                                Rp{{ number_format($item->total_harga_harian) }}</Rp>
                                             </td>
                                             <td>
-                                                <center>{{ $item->total_laba_harian }}
+                                                Rp{{ number_format($item->total_laba_harian) }}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5" class="text-end"><strong>Total Laba Kotor : {{ $total_laba_kotor }}</strong></td>
+                                        <td colspan="5" class="text-end"><strong>Total Laba Kotor :
+                                                Rp{{ number_format($total_laba_kotor) }}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -84,4 +87,29 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function exportPDF() {
+            // Kirim permintaan AJAX ke rute ekspor PDF
+            $.ajax({
+                url: "{{ route('report.exportPDF') }}",
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    var blob = new Blob([response], {
+                        type: 'application/pdf'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'laporan.pdf';
+                    link.click();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    </script>
 @endsection
