@@ -69,4 +69,4 @@ Route::resource('/transaction', TransactionController::class);
 Route::get('/report/data', [ReportController::class, 'data'])->name('report.data');
 Route::resource('/report', ReportController::class);
 Route::post('/report', [ReportController::class, 'index'])->name('report.index');
-Route::get('/report/export-pdf', [ReportController::class, 'exportPDF'])->name('report.exportPDF');
+Route::get('/export-pdf', [ReportController::class, 'exportPDF']);

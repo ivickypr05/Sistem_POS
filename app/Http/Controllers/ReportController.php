@@ -30,32 +30,7 @@ class ReportController extends Controller
         return view('dashboard.report.index', compact('reports'));
     }
 
-    public function exportPDF()
-    {
-        // Ambil data laporan dari database atau sumber lain
-        $reports = Transaction::select(
-            DB::raw('DATE(tanggal) as tanggal'),
-            DB::raw('SUM(total_harga) as total_harga_harian'),
-            DB::raw('SUM(laba) as total_laba_harian')
-        )
-            ->groupBy(DB::raw('DATE(tanggal)'))
-            ->orderBy('tanggal')
-            ->get();
 
-        // Mengkonversi data menjadi array untuk diteruskan ke tampilan Blade
-        $data = [
-            'reports' => $reports
-        ];
-
-        // Logika untuk menghasilkan file PDF
-        $pdf = PDF::loadView('dashboard.report.pdf', $data);
-
-        // Mengirimkan file PDF ke browser 
-        return $pdf->stream('laporan.pdf', [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="laporan.pdf"'
-        ]);
-    }
     /**
      * Show the form for creating a new resource.
      */
@@ -102,5 +77,30 @@ class ReportController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function exportPDF()
+    {
+        // $data = 'tes';
+        // dd($data);
+        // Ambil data laporan dari database atau sumber lain
+        $reports = Transaction::select(
+            DB::raw('DATE(tanggal) as tanggal'),
+            DB::raw('SUM(total_harga) as total_harga_harian'),
+            DB::raw('SUM(laba) as total_laba_harian')
+        )
+            ->groupBy(DB::raw('DATE(tanggal)'))
+            ->orderBy('tanggal')
+            ->get();
+
+        // Mengkonversi data menjadi array untuk diteruskan ke tampilan Blade
+        $data = [
+            'reports' => $reports
+        ];
+
+        // Logika untuk menghasilkan file PDF
+        $pdf = PDF::loadView('dashboard.report.pdf', $data);
+
+        // Mengirimkan file PDF ke browser
+        return $pdf->download('laporan.pdf');
     }
 }

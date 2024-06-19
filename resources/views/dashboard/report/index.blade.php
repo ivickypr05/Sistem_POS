@@ -23,8 +23,8 @@
                                 class="fa fa-calendar-days"></i>
                             Pilih Periode</button>
 
-                        <button class="btn btn-danger btn-md" onclick="exportPDF()"><i class="fa fa-print"></i> Export
-                            PDF</button>
+                        <a class="btn btn-danger btn-md" href="{{ url('/export-pdf') }}"><i class="fa fa-print"></i> Export
+                            PDF</a>
 
                     </div>
                 </nav>
@@ -88,7 +88,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    {{-- <script>
         function exportPDF() {
             // Kirim permintaan AJAX ke rute ekspor PDF
             $.ajax({
@@ -111,5 +111,5 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 @endsection
