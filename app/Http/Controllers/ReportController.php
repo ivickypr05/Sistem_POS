@@ -50,7 +50,7 @@ class ReportController extends Controller
         // Logika untuk menghasilkan file PDF
         $pdf = PDF::loadView('dashboard.report.pdf', $data);
 
-        // Mengirimkan file PDF ke browser (menggunakan stream)
+        // Mengirimkan file PDF ke browser 
         return $pdf->stream('laporan.pdf', [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="laporan.pdf"'

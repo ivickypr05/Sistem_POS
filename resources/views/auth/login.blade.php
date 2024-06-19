@@ -11,11 +11,11 @@
             <div class="input-wrapper">
                 <input id="email" type="email" name="email" class="form__input @error('email') is-invalid @enderror"
                     placeholder="Email" required autocomplete="email" autofocus>
-                @error('email')
+                {{-- @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror --}}
             </div>
         </div>
 
@@ -30,11 +30,11 @@
                     class="form__input  @error('password') is-invalid @enderror" placeholder="Password" required
                     autocomplete="current-password">
                 <i class="bi bi-eye-fill toggle-password"></i>
-                @error('password')
+                {{-- @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror --}}
             </div>
         </div>
         <div class="form__field row">
