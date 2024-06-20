@@ -7,7 +7,6 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" type="image/png" href="/assets/dahboard/images/logos/favicon.png" />
     <link rel="stylesheet" href="/assets/dashboard/css/styles.min.css" />
-
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     {{-- Data Tables --}}
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />

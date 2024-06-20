@@ -78,29 +78,37 @@ class ReportController extends Controller
     {
         //
     }
-    public function exportPDF()
+    public function exportPDF(Request $request)
     {
-        // $data = 'tes';
-        // dd($data);
-        // Ambil data laporan dari database atau sumber lain
+        // Validasi input tanggal
+        $request->validate([
+            'tanggal_awal' => 'required|date',
+            'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal',
+        ]);
+
+        // Ambil data laporan dari database berdasarkan rentang tanggal
         $reports = Transaction::select(
             DB::raw('DATE(tanggal) as tanggal'),
             DB::raw('SUM(total_harga) as total_harga_harian'),
             DB::raw('SUM(laba) as total_laba_harian')
         )
+            ->whereBetween('tanggal', [$request->tanggal_awal, $request->tanggal_akhir])
             ->groupBy(DB::raw('DATE(tanggal)'))
             ->orderBy('tanggal')
             ->get();
 
         // Mengkonversi data menjadi array untuk diteruskan ke tampilan Blade
         $data = [
-            'reports' => $reports
+            'reports' => $reports,
+            'tanggal_awal' => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir,
         ];
 
         // Logika untuk menghasilkan file PDF
         $pdf = PDF::loadView('dashboard.report.pdf', $data);
 
-        // Mengirimkan file PDF ke browser
-        return $pdf->download('laporan.pdf');
+        // Mengirimkan file PDF ke browser dengan nama file yang mencantumkan rentang tanggal
+        $fileName = 'laporan_' . $request->tanggal_awal . '_' . $request->tanggal_akhir . '.pdf';
+        return $pdf->download($fileName);
     }
 }

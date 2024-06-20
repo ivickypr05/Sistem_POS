@@ -23,8 +23,9 @@
                                 class="fa fa-calendar-days"></i>
                             Pilih Periode</button>
 
-                        <a class="btn btn-danger btn-md" href="{{ url('/export-pdf') }}"><i class="fa fa-print"></i> Export
-                            PDF</a>
+                        <button class="btn btn-danger btn-md" data-toggle="modal" data-target="#cetakForm"><i
+                                class="fa fa-print"></i> Export
+                            PDF</button>
 
                     </div>
                 </nav>
@@ -38,11 +39,11 @@
                                         <th>
                                             <center> Tanggal</center>
                                         </th>
-                                        <th>
-                                            <center> Penjualan</center>
+                                        <th style="width: 300px;"><b>
+                                                Penjualan</b>
                                         </th>
-                                        <th>
-                                            <center> Laba Kotor</center>
+                                        <th style="width: 300px;"><b>
+                                                Laba Kotor</b>
                                         </th>
                                     </tr>
                                 </thead>
@@ -70,8 +71,10 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5" class="text-end"><strong>Total Laba Kotor :
-                                                Rp{{ number_format($total_laba_kotor) }}</strong></td>
+                                        <td colspan="2" class="text-end"><strong>Total Laba Kotor :</strong></td>
+                                        <td colspan="3" class="text-start">
+                                            <strong>Rp{{ number_format($total_laba_kotor) }}</strong>
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -88,28 +91,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script>
-        function exportPDF() {
-            // Kirim permintaan AJAX ke rute ekspor PDF
-            $.ajax({
-                url: "{{ route('report.exportPDF') }}",
-                type: 'GET',
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function(response) {
-                    var blob = new Blob([response], {
-                        type: 'application/pdf'
-                    });
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    link.download = 'laporan.pdf';
-                    link.click();
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        }
-    </script> --}}
 @endsection
