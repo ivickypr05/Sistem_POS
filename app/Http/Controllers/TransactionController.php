@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Transaction;
-use App\Models\Transaction_detail;
 use Illuminate\Http\Request;
+use App\Models\Transaction_detail;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -115,5 +116,27 @@ class TransactionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function smallPDF(string $id)
+    {
+        $transaction = Transaction::where('id', $id)->first();
+        $transaction_detail = Transaction_detail::where('transaction_id', $id)->get();
+
+        $pdf = Pdf::loadView('dashboard.transaction.smallpdf', compact('transaction', 'transaction_detail'))
+            ->setPaper([0, 0, 163.071, 326.142], 'portrait'); // Mengatur ukuran kertas menjadi 58mm dalam satuan titik (1 inch = 72 points)
+
+        return $pdf->stream();
+    }
+
+    public function bigPDF(string $id)
+    {
+        $transaction = Transaction::where('id', $id)->first();
+        $transaction_detail = Transaction_detail::where('transaction_id', $id)->get();
+
+        $pdf = Pdf::loadView('dashboard.transaction.bigpdf', compact('transaction', 'transaction_detail'))
+            ->setPaper([0, 0, 595.276, 841.890], 'portrait'); // A4 size in points (1 inch = 72 points)
+
+        return $pdf->stream();
     }
 }

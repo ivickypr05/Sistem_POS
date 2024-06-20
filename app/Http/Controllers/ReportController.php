@@ -109,6 +109,6 @@ class ReportController extends Controller
 
         // Mengirimkan file PDF ke browser dengan nama file yang mencantumkan rentang tanggal
         $fileName = 'laporan_' . $request->tanggal_awal . '_' . $request->tanggal_akhir . '.pdf';
-        return $pdf->download($fileName);
+        return $pdf->stream($fileName);
     }
 }

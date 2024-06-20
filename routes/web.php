@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InproductController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,8 @@ Route::resource('/cart', CartController::class);
 //transaction
 Route::get('/transaction/data', [TransactionController::class, 'data'])->name('transaction.data');
 Route::resource('/transaction', TransactionController::class);
+Route::get('/transaction/small-pdf/{id}', [TransactionController::class, 'smallPDF'])->name('small-pdf');
+Route::get('/transaction/big-pdf/{id}', [TransactionController::class, 'bigPDF'])->name('big-pdf');
 
 //Report
 Route::get('/report/data', [ReportController::class, 'data'])->name('report.data');

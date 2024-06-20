@@ -15,14 +15,13 @@
             <div class="card-body">
                 <h3><i class="fa fa-shopping-cart me-2"></i><b>Detail Transaksi</b></h3>
                 <div class="mt-3 d-flex justify-content-start">
-                    <button class="cetak-kecil btn btn-success me-2"><i class="fa-solid fa-print"></i> Cetak Kecil</button>
-                    <button class="cetak-besar btn btn-primary"><i class="fa-solid fa-print"></i> Cetak Besar</button>
+                    <a href="{{ route('small-pdf', $transaction->id) }}" class="cetak-kecil btn btn-success me-2"><i
+                            class="fa-solid fa-print"></i> Cetak Kecil</a>
+                    <a href="{{ route('big-pdf', $transaction->id) }}" class="cetak-besar btn btn-primary"><i
+                            class="fa-solid fa-print"></i> Cetak Besar</a>
                 </div>
-                <div class="card mt-4 mb-4 cetak-area">
+                <div class="card mt-4 mb-4">
                     <div class="card-body">
-                        <h2 class="mt-3 text-center"><b>Toko Besi Maju Jaya</b></h2>
-                        <p class="text-center">Jl.Pramuka, Kel.Argasunya, Kec.Harjamukti, Cirebon.</p>
-                        <br>
                         <table class="table mt-1">
                             <tr>
                                 <td><strong>Invoice:</strong>&emsp; #{{ $transaction->invoice_nomor }}</td>
@@ -39,18 +38,18 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Produk</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
-                                        <th>Subtotal</th>
+                                        <th><b>No</b></th>
+                                        <th><b>Produk</b></th>
+                                        <th><b>Harga</b></th>
+                                        <th><b>Jumlah</b></th>
+                                        <th><b>Subtotal</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($transaction_detail as $index => $item)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td style="width: 100%; white-space: normal;">{{ $item->nama }}</td>
+                                            <td>{{ $item->nama }}</td>
                                             <td>Rp{{ number_format($item->harga_jual, 0, ',', '.') }}</td>
                                             <td>{{ $item->jumlah }}</td>
                                             <td>Rp{{ number_format($item->subtotal, 0, ',', '.') }}</td>
@@ -60,23 +59,23 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class="text-end"><strong>Pajak:</strong></td>
-                                        <td class="text-end"><strong>Rp0</strong></td>
+                                        <td class="text-start"><strong>Rp0</strong></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-end"><strong>Total Harga:</strong></td>
-                                        <td class="text-end">
+                                        <td class="text-start">
                                             <strong>Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-end"><strong>Total Pembayaran:</strong></td>
-                                        <td class="text-end">
+                                        <td class="text-start">
                                             <strong>Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-end"><strong>Kembalian:</strong></td>
-                                        <td class="text-end">
+                                        <td class="text-start">
                                             <strong>Rp{{ number_format($transaction->jumlah_bayar - $transaction->total_harga, 0, ',', '.') }}</strong>
                                         </td>
                                     </tr>
@@ -85,152 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <iframe id="print-frame" style="display:none;"></iframe>
             </div>
         </div>
     </div>
 @endsection
-
-@push('style')
-    <style>
-        @media print {
-            body {
-                width: 58mm;
-                margin: 0;
-                padding: 0;
-                font-size: 10px;
-            }
-
-            .cetak-area {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-            table,
-            th,
-            td {
-                border: none;
-                font-size: 10px;
-            }
-
-            .table-responsive {
-                overflow: hidden;
-            }
-
-            .card,
-            .card-body {
-                border: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            .table {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-            .btn,
-            .no-print {
-                display: none;
-            }
-
-            h2,
-            p {
-                text-align: center;
-                margin: 0;
-                padding: 0;
-            }
-
-            tfoot tr td {
-                border-top: 1px dashed #000;
-            }
-
-            /* Menyesuaikan lebar kolom "Produk" untuk cetak kecil */
-            .table tbody td:nth-child(2) {
-                width: 100%;
-                /* Sesuaikan lebarnya sesuai kebutuhan */
-                white-space: normal;
-                /* Memastikan teks dapat mengalir sesuai kebutuhan */
-            }
-
-            /* Penyesuaian pada cetak besar */
-            @media print and (orientation: landscape) {
-                body {
-                    width: 210mm;
-                    height: 297mm;
-                    font-size: 14px;
-                    /* Memperbesar font pada cetak besar */
-                }
-
-                .table,
-                th,
-                td {
-                    border: 1px solid #ddd;
-                    font-size: 14px;
-                    /* Memperbesar font pada tabel */
-                }
-            }
-        }
-    </style>
-@endpush
-
-@push('script')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function printArea(printSize) {
-                var printContents = document.querySelector('.cetak-area').innerHTML;
-                var printFrame = document.getElementById('print-frame').contentWindow;
-
-                printFrame.document.open();
-                printFrame.document.write(`
-                    <html>
-                    <head>
-                        <style>
-                            body {
-                                ${printSize === 'kecil' ? 'width: 58mm;' : 'width: 210mm; height: 297mm;'}
-                                margin: 0;
-                                padding: 0;
-                                font-size: ${printSize === 'kecil' ? '10px;' : '14px;'} /* Memperbesar font pada cetak besar */
-                            }
-                            table, th, td {
-                                border: ${printSize === 'kecil' ? 'none;' : '1px solid #ddd;'}
-                                font-size: ${printSize === 'kecil' ? '10px;' : '14px;'} /* Memperbesar font pada tabel */
-                            }
-                            .table {
-                                width: 100%;
-                                margin: 0;
-                                padding: 0;
-                            }
-                            h2, p {
-                                text-align: center;
-                                margin: 0;
-                                padding: 0;
-                            }
-                            tfoot tr td {
-                                border-top: 1px dashed #000;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        ${printContents}
-                    </body>
-                    </html>
-                `);
-                printFrame.document.close();
-                printFrame.focus();
-                printFrame.print();
-            }
-
-            $('.cetak-kecil').on('click', function() {
-                printArea('kecil');
-            });
-
-            $('.cetak-besar').on('click', function() {
-                printArea('besar');
-            });
-        });
-    </script>
-@endpush
