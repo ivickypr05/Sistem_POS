@@ -139,4 +139,10 @@ class TransactionController extends Controller
 
         return $pdf->stream();
     }
+
+    public function transactionall()
+    {
+        $transactions = Transaction::orderBy('updated_at', 'desc')->get();
+        return view('dashboard.transaction.all', compact('transactions'));
+    }
 }
