@@ -16,9 +16,9 @@ class RolePemilik
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // return $next($request);
         if (Auth::user()->role !== 'pemilik') {
             return redirect('/home')->with('warning', 'Anda tidak memiliki akses untuk halaman ini!');
         }
+        return $next($request);
     }
 }
