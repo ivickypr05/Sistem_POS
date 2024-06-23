@@ -39,7 +39,7 @@
     <script src="/assets/dashboard/js/app.min.js"></script>
     <script src="/assets/dashboard/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="/assets/dashboard/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/assets/dashboard/js/dashboard.js"></script>
+    {{-- <script src="/assets/dashboard/js/dashboard.js"></script> --}}
 
     <script src="/assets/dashboard/js/datatables-simple-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

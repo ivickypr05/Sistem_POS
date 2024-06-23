@@ -82,6 +82,7 @@
                     /* Membuat teks menjadi tebal */
                 }
             </style>
+
             <!-- Info-box untuk Jumlah Category -->
             <div class="col-lg-4 col-md-6">
                 <a href="{{ route('category.index') }}">
@@ -125,6 +126,11 @@
                         </div>
                     </div>
                 </a>
+            </div>
+            <div class="col-12 mt-5">
+                <h2>Data Penjualan 7 hari yang lalu</h2>
+                <div id="chart">
+                </div>
             </div>
         @else
             <style>
@@ -170,8 +176,50 @@
             </div>
         @endif
 
-
-
-
-
+    </div>
     @endsection
+
+@push('script')
+    <script>
+        var options = {
+            chart: {
+                height: 280,
+                type: "area"
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [
+                {
+                name: "Penjualan",
+                data: [45, 52, 38, 45, 19, 23, 2]
+                }
+            ],
+            fill: {
+                type: "gradient",
+                gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+                }
+            },
+            xaxis: {
+                categories: [
+                "01 Jan",
+                "02 Jan",
+                "03 Jan",
+                "04 Jan",
+                "05 Jan",
+                "06 Jan",
+                "07 Jan"
+                ]
+            }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
+
+    </script>
+@endpush
