@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,23 @@ class HomeController extends Controller
         $product = Product::with('category')->count();
         $user = User::count();
 
+        // Mendapatkan tanggal 7 hari yang lalu
+        $tujuhHariLalu = Carbon::now()->subDays(7);
 
-        return view('dashboard.home', compact('category', 'product', 'user'));
+        // Query menggunakan Eloquent
+        $jumlahTransaksiPerHari = DB::table('transactions')
+            ->select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('COUNT(invoice_nomor) as jumlah_transaksi'))
+            ->where('tanggal', '>=', $tujuhHariLalu)
+            ->groupBy(DB::raw('DATE(tanggal)'))
+            ->orderBy(DB::raw('DATE(tanggal)'))
+            ->limit(25)
+            ->get();
+
+        // jadikan 2 aray penjualan dan tanggal
+        $penjualan = $jumlahTransaksiPerHari->pluck('jumlah_transaksi')->toArray();
+        $tanggal = $jumlahTransaksiPerHari->pluck('tanggal')->toArray();
+        // dd($tanggal);
+
+        return view('dashboard.home', compact('category', 'product', 'user','penjualan','tanggal'));
     }
 }

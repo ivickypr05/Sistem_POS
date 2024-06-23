@@ -7,6 +7,8 @@
             <i class="fa-solid fa-arrows-up-down-left-right mt-1 ms-2 mb-1 me-2"></i>
             <a href="{{ route('home') }}" class="text-dark"> Dashboard</a>
         </div>
+
+
         @if (auth()->user()->role == 'pemilik')
             <style>
                 <style>.master-data {
@@ -192,7 +194,7 @@
             series: [
                 {
                 name: "Penjualan",
-                data: [45, 52, 38, 45, 19, 23, 2]
+                data: @json($penjualan)
                 }
             ],
             fill: {
@@ -205,15 +207,7 @@
                 }
             },
             xaxis: {
-                categories: [
-                "01 Jan",
-                "02 Jan",
-                "03 Jan",
-                "04 Jan",
-                "05 Jan",
-                "06 Jan",
-                "07 Jan"
-                ]
+                categories: @json($tanggal)
             }
             };
 
