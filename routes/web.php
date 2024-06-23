@@ -35,6 +35,7 @@ Route::match(['get', 'post'], '/register', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// route midleware pemilik
 Route::middleware(['auth', 'pemilik'])->group(function () {
     //category
     Route::get('/category/data', [CategoryController::class, 'data'])->name('category.data');
@@ -75,7 +76,8 @@ Route::middleware(['auth', 'pemilik'])->group(function () {
     Route::get('/transaction/big-pdf/{id}', [TransactionController::class, 'bigPDF'])->name('big-pdf');
 });
 
-Route::middleware(['auth', 'kasir'])->group(function () {
+// route midleware kasir
+Route::middleware(['auth'])->group(function () {
     // PENJUALAN
     //cart
     Route::get('/cart/data', [CartController::class, 'data'])->name('cart.data');

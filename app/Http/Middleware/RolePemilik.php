@@ -16,9 +16,9 @@ class RolePemilik
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
-        if (Auth::check() && Auth::user()->role !== 'pemilik') {
-            return redirect('/home')->with('success', 'Selamat datang di Dashboard Pemilik');
+        // return $next($request);
+        if (Auth::user()->role !== 'pemilik') {
+            return redirect('/home')->with('warning', 'Anda tidak memiliki akses untuk halaman ini!');
         }
     }
 }
