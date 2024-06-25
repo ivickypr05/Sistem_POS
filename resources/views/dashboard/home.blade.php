@@ -130,8 +130,43 @@
                 </a>
             </div>
             <div class="col-12 mt-5">
-                <h2>Data Penjualan 7 hari yang lalu</h2>
+                <h2>Diagram Laba Kotor</h2>
+                <button class="btn btn-primary btn-md me-2" data-toggle="modal" data-target="#periodeForm"><i
+                        class="fa fa-calendar-days"></i>
+                    Pilih Periode</button>
                 <div id="chart">
+                </div>
+            </div>
+            <!-- Periode Modal -->
+            <div class="modal fade" id="periodeForm" tabindex="-1" aria-labelledby="periodeForm" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="periodeForm"><b>Pilih Periode untuk Diagram</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addPeriode" action="{{ route('home') }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <div class="form-group">
+                                    <label class="mb-1" for="tanggal_awal">Periode Awal</label>
+                                    <input type="date" class="form-control mb-2" id="tanggal_awal" name="tanggal_awal"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1" for="tanggal_akhir">Periode Akhir</label>
+                                    <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir"
+                                        required>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                    class="fa fa-close me-2"></i>Batal</button>
+                            <button type="submit" class="btn btn-primary" form="addPeriode"><i
+                                    class="fa fa-save me-2"></i>Simpan</button>
+                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         @else
@@ -179,45 +214,42 @@
         @endif
 
     </div>
-    @endsection
+@endsection
 
 @push('script')
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {{-- diagram --}}
     <script>
         var options = {
             chart: {
                 height: 280,
-                type: "area"
+                type: "bar" // Ubah menjadi "bar" untuk grafik diagram
             },
             dataLabels: {
                 enabled: false
             },
-            series: [
-                {
-                name: "Penjualan",
-                data: @json($penjualan)
+            series: [{
+                    name: "Penjualan",
+                    data: @json($penjualan)
                 },
                 {
-                name: "Keuntungan",
-                data: @json($keuntungan)
+                    name: "Laba Kotor",
+                    data: @json($laba)
                 }
             ],
             fill: {
-                type: "gradient",
-                gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.7,
-                opacityTo: 0.9,
-                stops: [0, 90, 100]
-                }
+                type: "solid" // Ubah menjadi "solid" untuk diagram
             },
             xaxis: {
                 categories: @json($tanggal)
             }
-            };
+        };
 
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
 
-            chart.render();
-
+        chart.render();
     </script>
 @endpush

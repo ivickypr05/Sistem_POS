@@ -26,30 +26,43 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $category = Category::count();
         $product = Product::with('category')->count();
         $user = User::count();
 
-        // Mendapatkan tanggal 7 hari yang lalu
-        $tujuhHariLalu = Carbon::now()->subDays(7);
+        $request->validate([
+            'tanggal_awal' => 'nullable|date',
+            'tanggal_akhir' => 'nullable|date',
+        ]);
+
+        // Periksa apakah tanggal awal dan tanggal akhir ada dalam request
+        if ($request->has(['tanggal_awal', 'tanggal_akhir'])) {
+            $tanggal_awal = Carbon::parse($request->input('tanggal_awal'))->startOfDay();
+            $tanggal_akhir = Carbon::parse($request->input('tanggal_akhir'))->endOfDay();
+        } else {
+            // Jika tidak, set tanggal_awal ke awal bulan dan tanggal_akhir ke hari ini
+            $tanggal_awal = Carbon::now()->startOfMonth();
+            $tanggal_akhir = Carbon::now()->endOfDay();
+        }
 
         // Query menggunakan Eloquent
         $jumlahTransaksiPerHari = DB::table('transactions')
-            ->select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('sum(total_harga) as sum_harga'),DB::raw('sum(laba) as keuntungan'))
-            ->where('tanggal', '>=', $tujuhHariLalu)
+            ->select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('sum(total_harga) as sum_harga'), DB::raw('sum(laba) as laba'))
+            ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])
             ->groupBy(DB::raw('DATE(tanggal)'))
             ->orderBy(DB::raw('DATE(tanggal)'))
             ->limit(25)
             ->get();
 
-        // jadikan 2 aray penjualan dan tanggal
+        // Ekstrak data untuk grafik
         $penjualan = $jumlahTransaksiPerHari->pluck('sum_harga')->toArray();
-        $keuntungan = $jumlahTransaksiPerHari->pluck('keuntungan')->toArray();
-        $tanggal = $jumlahTransaksiPerHari->pluck('tanggal')->toArray();
-        // dd($tanggal);
+        $laba = $jumlahTransaksiPerHari->pluck('laba')->toArray();
+        $tanggal = $jumlahTransaksiPerHari->pluck('tanggal')->map(function ($date) {
+            return Carbon::parse($date)->isoFormat('D MMMM YYYY');
+        })->toArray();
 
-        return view('dashboard.home', compact('category', 'product', 'user','penjualan','tanggal','keuntungan'));
+        return view('dashboard.home', compact('category', 'product', 'user', 'penjualan', 'tanggal', 'laba'));
     }
 }

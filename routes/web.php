@@ -34,6 +34,7 @@ Route::match(['get', 'post'], '/register', function () {
     return redirect('/');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // route midleware pemilik
 Route::middleware(['auth', 'pemilik'])->group(function () {
