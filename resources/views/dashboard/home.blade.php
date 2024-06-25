@@ -195,6 +195,10 @@
                 {
                 name: "Penjualan",
                 data: @json($penjualan)
+                },
+                {
+                name: "Keuntungan",
+                data: @json($keuntungan)
                 }
             ],
             fill: {

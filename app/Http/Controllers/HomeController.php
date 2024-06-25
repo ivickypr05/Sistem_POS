@@ -37,7 +37,7 @@ class HomeController extends Controller
 
         // Query menggunakan Eloquent
         $jumlahTransaksiPerHari = DB::table('transactions')
-            ->select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('COUNT(invoice_nomor) as jumlah_transaksi'))
+            ->select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('sum(total_harga) as sum_harga'),DB::raw('sum(laba) as keuntungan'))
             ->where('tanggal', '>=', $tujuhHariLalu)
             ->groupBy(DB::raw('DATE(tanggal)'))
             ->orderBy(DB::raw('DATE(tanggal)'))
@@ -45,10 +45,11 @@ class HomeController extends Controller
             ->get();
 
         // jadikan 2 aray penjualan dan tanggal
-        $penjualan = $jumlahTransaksiPerHari->pluck('jumlah_transaksi')->toArray();
+        $penjualan = $jumlahTransaksiPerHari->pluck('sum_harga')->toArray();
+        $keuntungan = $jumlahTransaksiPerHari->pluck('keuntungan')->toArray();
         $tanggal = $jumlahTransaksiPerHari->pluck('tanggal')->toArray();
         // dd($tanggal);
 
-        return view('dashboard.home', compact('category', 'product', 'user','penjualan','tanggal'));
+        return view('dashboard.home', compact('category', 'product', 'user','penjualan','tanggal','keuntungan'));
     }
 }
