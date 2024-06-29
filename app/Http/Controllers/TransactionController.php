@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Product;
+use App\Mail\StockMinus;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Transaction_detail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
@@ -62,6 +65,8 @@ class TransactionController extends Controller
                 'tanggal' => date('Y-m-d')
             ]);
 
+            $produk_minus=[];
+
             foreach ($carts as $cart) {
                 Transaction_detail::create([
                     'transaction_id' => $transaction->id,
@@ -72,9 +77,20 @@ class TransactionController extends Controller
                     'jumlah' => $cart->jumlah,
                     'subtotal' => $cart->product->harga_jual * $cart->jumlah,
                 ]);
+                if($cart->product->stok < 5){
+                    $produk_minus[]=$cart->product_id;
+                }
                 // Menghapus entri cart
                 $cart->delete();
             }
+            // $data_products = Product::select('kode_produk', 'nama', 'stok')->whereIn($produk_minus)->get();
+            $data = [
+                'poducts' => 'tes',
+            ];
+            // if($products>1){
+                // send mail
+                Mail::to('rosyid3003@gmail.com')->send(new StockMinus($data));
+            // }
 
             return redirect()->route('transaction.show', $transaction->id)->with('success', 'Pembayaran Berhasil');
         } else {

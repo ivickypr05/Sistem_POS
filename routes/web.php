@@ -1,9 +1,11 @@
 <?php
 
 use GuzzleHttp\Middleware;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncartController;
 use App\Http\Controllers\ReportController;
@@ -11,7 +13,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InproductController;
 use App\Http\Controllers\TransactionController;
-use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,9 @@ use App\Models\Transaction;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('send-mail', [MailController::class, 'index']);
 
+Route::view('mail', 'mail.mail');
 
 Auth::routes();
 Route::match(['get', 'post'], '/register', function () {

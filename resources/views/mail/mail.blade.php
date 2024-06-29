@@ -67,6 +67,18 @@
                 tidak kehabisan stok, kami menyarankan Anda untuk segera melakukan pembelanjaan.</p>
             <p>Berikut adalah daftar produk yang sedang menipis:</p>
             <table>
+                <thead>
+                    <th>
+                        <td>Nama Produk</td>
+                        <td>Stok</td>
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Produk A</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
             </table>
             <p>Terima kasih atas perhatian dan kerjasamanya.</p>
             <p>Salam,</p>
