@@ -77,20 +77,28 @@ class TransactionController extends Controller
                     'jumlah' => $cart->jumlah,
                     'subtotal' => $cart->product->harga_jual * $cart->jumlah,
                 ]);
-                if($cart->product->stok < 5){
+                if($cart->product->stok < 6){
                     $produk_minus[]=$cart->product_id;
+                    // dd($produk_minus);
                 }
                 // Menghapus entri cart
                 $cart->delete();
             }
-            // $data_products = Product::select('kode_produk', 'nama', 'stok')->whereIn($produk_minus)->get();
-            $data = [
-                'poducts' => 'tes',
-            ];
-            // if($products>1){
+            $data_products = Product::select('kode_produk', 'nama', 'stok')->whereIn('id', $produk_minus)->get();
+            $data = [];
+            foreach ($data_products as $product) {
+                $data[] = [
+                    'kode_produk' => $product->kode_produk,
+                    'nama' => $product->nama,
+                    'stok' => $product->stok
+                ];
+            }
+            // dd($data_products[]);
+            // exit;
+            if($produk_minus>0){
                 // send mail
                 Mail::to('rosyid3003@gmail.com')->send(new StockMinus($data));
-            // }
+            }
 
             return redirect()->route('transaction.show', $transaction->id)->with('success', 'Pembayaran Berhasil');
         } else {

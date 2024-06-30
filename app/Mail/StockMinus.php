@@ -37,8 +37,10 @@ class StockMinus extends Mailable
      */
     public function content(): Content
     {
+        // dd($data);
         return new Content(
             view: 'mail.mail',
+            with: ['data' => $this->data]
         );
     }
 

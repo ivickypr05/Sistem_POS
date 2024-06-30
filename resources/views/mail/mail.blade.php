@@ -66,18 +66,25 @@
             <p>Kami ingin memberitahukan bahwa stok salah satu produk kami sedang menipis. Untuk memastikan bahwa Anda
                 tidak kehabisan stok, kami menyarankan Anda untuk segera melakukan pembelanjaan.</p>
             <p>Berikut adalah daftar produk yang sedang menipis:</p>
+            {{-- @php
+                dd($data)
+            @endphp --}}
             <table>
                 <thead>
                     <th>
+                        <td>Kode Produk</td>
                         <td>Nama Produk</td>
                         <td>Stok</td>
                     </th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Produk A</td>
-                        <td>10</td>
-                    </tr>
+                    @for ($i = 0; $i < count($data); $i++ )
+                        <tr>
+                            <td>{{ $data[$i]['kode_produk'] }}</td>
+                            <td>{{ $data[$i]['nama'] }}</td>
+                            <td>{{ $data[$i]['stok'] }}</td>
+                        </tr>
+                    @endfor
                 </tbody>
             </table>
             <p>Terima kasih atas perhatian dan kerjasamanya.</p>
