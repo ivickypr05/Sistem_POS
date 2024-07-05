@@ -97,7 +97,7 @@ class TransactionController extends Controller
             // exit;
             if ($produk_minus > 0) {
                 // send mail
-                Mail::to('ikovickyp@gmail.com')->send(new StockMinus($data));
+                Mail::to('vickypratama0649@gmail.com')->send(new StockMinus($data));
             }
 
             return redirect()->route('transaction.show', $transaction->id)->with('success', 'Pembayaran Berhasil');
