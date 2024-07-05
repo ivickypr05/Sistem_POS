@@ -1,4 +1,4 @@
-<!-- Add Category Modal -->
+<!-- Add Product Modal -->
 <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="addForm" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -54,12 +54,12 @@
     </div>
 </div>
 
-<!-- Edit Category Modal -->
+<!-- Edit Product Modal -->
 <div class="modal fade" id="editForm" tabindex="-1" aria-labelledby="editForm" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="editForm"><b>Edit Produk</b></h4>
+                <h4 class="modal-title" id="editForm"><b>Perbarui Produk</b></h4>
             </div>
             <div class="modal-body">
                 <form id="editProduct" action="" method="POST">

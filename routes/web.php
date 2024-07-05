@@ -28,7 +28,6 @@ use App\Http\Controllers\TransactionController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('send-mail', [MailController::class, 'index']);
 
 Route::view('mail', 'mail.mail');
 

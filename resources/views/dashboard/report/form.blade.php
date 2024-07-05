@@ -34,7 +34,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="cetakForm"><b>Pilih Periode</b></h4>
+                <h4 class="modal-title" id="cetakForm"><b>Pilih Periode Export PDF</b></h4>
             </div>
             <div class="modal-body">
                 <form id="cetakPeriode" action="{{ route('export-pdf') }}" method="POST">

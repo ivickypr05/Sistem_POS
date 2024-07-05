@@ -65,7 +65,7 @@ class TransactionController extends Controller
                 'tanggal' => date('Y-m-d')
             ]);
 
-            $produk_minus=[];
+            $produk_minus = [];
 
             foreach ($carts as $cart) {
                 Transaction_detail::create([
@@ -77,8 +77,8 @@ class TransactionController extends Controller
                     'jumlah' => $cart->jumlah,
                     'subtotal' => $cart->product->harga_jual * $cart->jumlah,
                 ]);
-                if($cart->product->stok < 6){
-                    $produk_minus[]=$cart->product_id;
+                if ($cart->product->stok < 6) {
+                    $produk_minus[] = $cart->product_id;
                     // dd($produk_minus);
                 }
                 // Menghapus entri cart
@@ -95,9 +95,9 @@ class TransactionController extends Controller
             }
             // dd($data_products[]);
             // exit;
-            if($produk_minus>0){
+            if ($produk_minus > 0) {
                 // send mail
-                Mail::to('rosyid3003@gmail.com')->send(new StockMinus($data));
+                Mail::to('ikovickyp@gmail.com')->send(new StockMinus($data));
             }
 
             return redirect()->route('transaction.show', $transaction->id)->with('success', 'Pembayaran Berhasil');

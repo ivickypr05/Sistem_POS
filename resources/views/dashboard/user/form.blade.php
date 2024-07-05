@@ -41,7 +41,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="editFormLabel"><b>Perbarui Data User</b></h4>
+                <h4 class="modal-title" id="editFormLabel"><b>Perbarui User</b></h4>
             </div>
             <div class="modal-body">
                 <form id="editUser" action="" method="POST">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-1" for="edit_password">Password Baru</label>
-                        <input type="password" class="form-control mb-2" id="edit_password" name="password" required>
+                        <input type="password" class="form-control mb-2" id="edit_password" name="password">
                     </div>
                     <div class="form-group">
                         <label class="mb-1" for="edit_role">Role</label>
