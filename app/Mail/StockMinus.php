@@ -28,7 +28,7 @@ class StockMinus extends Mailable
     {
         $date_time = date('D/M/Y H:I');
         return new Envelope(
-            subject: $date_time.' Pemberitahuan Stok Produk <5',
+            subject: $date_time . 'Stok Produk Kurang Dari 5!',
         );
     }
 

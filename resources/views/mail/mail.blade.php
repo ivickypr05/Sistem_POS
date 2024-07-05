@@ -53,6 +53,32 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 
@@ -66,19 +92,16 @@
             <p>Kami ingin memberitahukan bahwa stok salah satu produk kami sedang menipis. Untuk memastikan bahwa Anda
                 tidak kehabisan stok, kami menyarankan Anda untuk segera melakukan pembelanjaan.</p>
             <p>Berikut adalah daftar produk yang sedang menipis:</p>
-            {{-- @php
-                dd($data)
-            @endphp --}}
             <table>
                 <thead>
-                    <th>
-                        <td>Kode Produk</td>
-                        <td>Nama Produk</td>
-                        <td>Stok</td>
-                    </th>
+                    <tr>
+                        <th>Kode Produk</th>
+                        <th>Nama Produk</th>
+                        <th>Stok</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 0; $i < count($data); $i++ )
+                    @for ($i = 0; $i < count($data); $i++)
                         <tr>
                             <td>{{ $data[$i]['kode_produk'] }}</td>
                             <td>{{ $data[$i]['nama'] }}</td>
@@ -91,7 +114,7 @@
             <p>Salam,</p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Toko Besi Maju jaya.</p>
+            <p>&copy; {{ date('Y') }} Toko Besi Maju Jaya.</p>
         </div>
     </div>
 </body>
