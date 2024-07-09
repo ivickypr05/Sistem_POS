@@ -36,7 +36,7 @@
                                             <center> Total Harga</center>
                                         </th>
                                         <th>
-                                            <center> Jumlah Bayar</center>
+                                            <center> Tunai</center>
                                         </th>
                                         <th>
                                             <center> Kembalian</center>

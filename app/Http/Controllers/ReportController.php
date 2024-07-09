@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -14,19 +15,36 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
-        // validate the request
+        // Validate the request
         $request->validate([
             'tanggal_awal' => 'date',
             'tanggal_akhir' => 'date',
         ]);
 
+        // Get start of the current month
+        $startOfMonth = Carbon::now()->startOfMonth();
 
+        // If the request has 'tanggal_awal' and 'tanggal_akhir', use them
         if ($request->has('tanggal_awal') && $request->has('tanggal_akhir')) {
-            $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('SUM(total_harga) as total_harga_harian'), DB::raw('SUM(laba) as total_laba_harian'))->whereBetween('tanggal', [$request->input('tanggal_awal'), $request->input('tanggal_akhir')])->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
-            return view('dashboard.report.index', compact('reports'));
+            $tanggal_awal = $request->input('tanggal_awal');
+            $tanggal_akhir = $request->input('tanggal_akhir');
+        } else {
+            // Default to the start of the current month to now
+            $tanggal_awal = $startOfMonth->toDateString();
+            $tanggal_akhir = Carbon::now()->toDateString();
         }
 
-        $reports = Transaction::select(DB::raw('DATE(tanggal) as tanggal'), DB::raw('SUM(total_harga) as total_harga_harian'), DB::raw('SUM(laba) as total_laba_harian'))->groupBy(DB::raw('DATE(tanggal)'))->orderBy('tanggal')->get();
+        // Get reports within the specified date range
+        $reports = Transaction::select(
+            DB::raw('DATE(tanggal) as tanggal'),
+            DB::raw('SUM(total_harga) as total_harga_harian'),
+            DB::raw('SUM(laba) as total_laba_harian')
+        )
+            ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])
+            ->groupBy(DB::raw('DATE(tanggal)'))
+            ->orderBy('tanggal')
+            ->get();
+
         return view('dashboard.report.index', compact('reports'));
     }
 

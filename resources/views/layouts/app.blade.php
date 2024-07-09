@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/assets/dashboard/images/logos/logotitle.png" />
     <title>@yield('title')</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/dahboard/images/logos/favicon.png" />
     <link rel="stylesheet" href="/assets/dashboard/css/styles.min.css" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     {{-- Data Tables --}}

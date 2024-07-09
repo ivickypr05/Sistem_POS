@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Product;
@@ -22,7 +23,11 @@ class TransactionController extends Controller
     {
         $user = User::where('id', Auth::user()->id)->first();
         $user_id = Auth::user()->id;
-        $transactions = Transaction::where('user_id', $user_id)->orderBy('updated_at', 'desc')->get();
+        $date = Carbon::now()->subDays(30); // Menghitung tanggal 30 hari yang lalu
+        $transactions = Transaction::where('user_id', $user_id)
+            ->where('updated_at', '>=', $date) // Mengambil transaksi dalam 30 hari terakhir
+            ->orderBy('updated_at', 'desc')
+            ->get();
         return view('dashboard.transaction.index', compact('user', 'transactions'));
     }
 

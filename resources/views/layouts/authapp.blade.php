@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/dashboard/images/logos/logotitle.png" />
     <title>Halaman Login | Toko Besi Maju Jaya</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 
