@@ -35,6 +35,11 @@ class InproductController extends Controller
         // Ambil semua item dari keranjang dengan produk terkait
         $incart = Incart::with('product')->get();
 
+        // Jika incart kosong, berikan alert dan kembali
+        if ($incart->isEmpty()) {
+            return redirect()->back()->with('error', 'Harus menambahkan produk terlebih dahulu');
+        }
+
         // Inisialisasi total_item
         $total_item = 0;
 
@@ -84,6 +89,7 @@ class InproductController extends Controller
 
         return redirect()->route('inproduct.index')->with('success', 'Produk Masuk Berhasil Ditambahkan.');
     }
+
 
     /**
      * Display the specified resource.

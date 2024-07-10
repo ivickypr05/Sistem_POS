@@ -39,7 +39,7 @@
                                             <center> Total Harga</center>
                                         </th>
                                         <th>
-                                            <center> Tunai</center>
+                                            <center> Total Pembayaran</center>
                                         </th>
                                         <th>
                                             <center> Kembalian</center>

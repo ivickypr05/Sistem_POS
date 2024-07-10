@@ -110,13 +110,7 @@
                             <td class="text-start"><strong>Rp0</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="text-end"><strong>Total Bayar:</strong></td>
-                            <td class="text-start">
-                                <strong>Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Tunai:</strong></td>
+                            <td colspan="4" class="text-end"><strong>Total Pembayaran:</strong></td>
                             <td class="text-start">
                                 <strong>Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</strong>
                             </td>

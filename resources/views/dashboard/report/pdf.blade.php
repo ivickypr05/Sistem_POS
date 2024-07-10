@@ -78,7 +78,7 @@
 
 <body>
     <div class="container">
-        <h1 class="mb-4"><b>LAPORAN LABA KOTOR</b></h1>
+        <h1 class="mb-4"><b>LAPORAN PENJUALAN & LABA KOTOR</b></h1>
         <h2 class="mb-5">Periode: {{ date('d M Y', strtotime($tanggal_awal)) }} -
             {{ date('d M Y', strtotime($tanggal_akhir)) }}</h2>
 

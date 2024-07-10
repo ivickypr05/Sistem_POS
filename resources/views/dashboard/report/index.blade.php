@@ -13,7 +13,7 @@
             <div class="card mt-1">
                 <div class="card-header mt-2">
                     <h3 class="card-tittle">
-                        <b>Laporan</b>
+                        <b>Laporan Penjualan dan Laba Kotor</b>
                     </h3>
                 </div>
                 <br>

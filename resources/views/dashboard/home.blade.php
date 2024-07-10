@@ -130,7 +130,7 @@
                 </a>
             </div>
             <div class="col-12 mt-5">
-                <h2>Diagram Laba Kotor</h2>
+                <h3><b>Diagram Penjualan dan Laba Kotor</b></h3>
                 <button class="btn btn-primary btn-md me-2" data-toggle="modal" data-target="#periodeForm"><i
                         class="fa fa-calendar-days"></i>
                     Pilih Periode</button>

@@ -46,12 +46,14 @@ class TransactionController extends Controller
     {
         $carts = Cart::with('product')->where('user_id', Auth::user()->id)->get();
         // dd($carts);
-        $jumlah_bayar = $request->input('jumlah_bayar');
-        // dd($carts);
 
-        // if (!empty($carts)) {
-        //     return redirect()->back()->with('error', 'Produk dalam keranjang tidak ditemukan');
-        // }
+        if ($carts->isEmpty()) {
+            return redirect()->back()->with('error', 'Harus menambahkan produk terlebih dahulu');
+        }
+
+        $jumlah_bayar = $request->input('jumlah_bayar');
+        // dd($jumlah_bayar);
+
         $total_harga = 0;
         $laba = 0;
         foreach ($carts as $cart) {
@@ -110,6 +112,7 @@ class TransactionController extends Controller
             return redirect()->back()->with('error', 'Uang Pembayaran tidak Mencukupi');
         }
     }
+
 
     /**
      * Display the specified resource.

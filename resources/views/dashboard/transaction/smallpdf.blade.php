@@ -134,15 +134,11 @@
                 <td colspan="2" class="text-end"><strong>Pajak:</strong></td>
                 <td class="text-end">Rp0</td>
             </tr>
-            <tr class="mt-1 mb-1">
-                <td colspan="2" class="text-end" style="border-top: 1px dotted #000;"><strong>Total Bayar:</strong>
-                </td>
-                <td class="text-end" style="border-top: 1px dotted #000;">
-                    Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</td>
-            </tr>
             <tr>
-                <td colspan="2" class="text-end"><strong>Tunai:</strong></td>
-                <td class="text-end">Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</td>
+                <td colspan="2" class="text-end" style="border-top: 1px dotted #000"><strong>Total
+                        Pembayaran:</strong></td>
+                <td class="text-end" style="border-top: 1px dotted #000">
+                    Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td colspan="2" class="text-end"><strong>Kembalian:</strong></td>
