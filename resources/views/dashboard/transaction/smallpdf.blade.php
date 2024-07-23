@@ -9,14 +9,16 @@
         @page {
             size: 58mm auto;
             /* Lebar dan panjang halaman */
-            margin: 2mm;
+            margin: 0.5mm;
             /* Margin halaman */
         }
 
         body {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            width: 58mm;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            width: 85%;
+            padding-left: 3mm;
+            padding-top: 3mm;
         }
 
         .header {
@@ -45,108 +47,84 @@
         }
 
         table {
-            width: 93%;
+            width: 95%;
+            padding-left: 2px;
             border-collapse: collapse;
-            margin-bottom: 5px;
-            /* Dikurangi untuk mengurangi jarak */
         }
 
-        tbody {
-            border-bottom: 1px dotted #000
-        }
-
-        th,
-        td {
-            padding: 2px 0;
-            font-size: 10px;
-        }
-
-        th {
-            border-bottom: 1px #000;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        tfoot {
-            font-size: 10px;
-            /* Ukuran font footer dikurangi */
-        }
-
-        tfoot td {
-            padding-top: 2px;
-            /* Dikurangi untuk mengurangi jarak */
-        }
-
-        .text-end {
-            text-align: right;
+        table td {
+            padding-top: 4px;
+            padding-bottom: 4px;
         }
 
         .text-center {
             text-align: center;
         }
+
+        .text-end {
+            text-align: right;
+        }
     </style>
 </head>
 
 <body>
-    <div class="d-flex justify-content-center mb-5">
-        <h2>
-            <center>Toko Besi Maju Jaya</center>
-        </h2>
-        <p>Jl. Pramuka, Kel. Argasunya, Kec. Harjamukti, Kota Cirebon.</p>
+    <div class="header">
+        <h2>TOKO BESI MAJU JAYA</h2>
+        <p>Jl. Pramuka Kota Cirebon</p>
+        <p>No HP : 0895354723068</p>
     </div>
 
     <table class="transaction-info">
         <tr>
-            <td><strong>Invoice:</strong> #{{ $transaction->invoice_nomor }}</td>
+            <td style="border-top: 1px dotted #000; border-bottom: 1px dotted #000">Invoice:
+                #{{ $transaction->invoice_nomor }}</td>
         </tr>
         <tr>
-            <td><strong>Nama Kasir:</strong> {{ $transaction->user->name }}</td>
+            <td style="border-bottom: 1px dotted #000">Nama Kasir: {{ $transaction->user->name }}</td>
         </tr>
         <tr>
-            <td><strong>Tanggal Transaksi:</strong> {{ date('d M Y | H:i:s', strtotime($transaction->created_at)) }}
-            </td>
+            <td style="border-bottom: 1px dotted #000">Tanggal:
+                {{ date('d M Y H:i:s', strtotime($transaction->created_at)) }}</td>
         </tr>
     </table>
 
     <table>
-        <thead>
-            <tr>
-                <th>Produk</th>
-                <th class="text-center">Jumlah</th>
-                <th class="text-end">Subtotal</th>
-            </tr>
-        </thead>
         <tbody>
             @foreach ($transaction_detail as $index => $item)
                 <tr>
                     <td>{{ $item->nama }}</td>
-                    <td class="text-center">{{ $item->jumlah }}</td>
+                    <td class="text-center">x{{ $item->jumlah }}</td>
                     <td class="text-end">Rp{{ number_format($item->subtotal, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2" class="text-end"><strong>Total Harga:</strong></td>
-                <td class="text-end">Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</td>
+                <td colspan="2" class="text-end" style="border-top: 1px dotted #000">Total Harga:
+                </td>
+                <td class="text-end" style="border-top: 1px dotted #000">
+                    Rp{{ number_format($transaction->total_harga, 0, ',', '.') }}</td>
             </tr>
             <tr>
-                <td colspan="2" class="text-end"><strong>Pajak:</strong></td>
+                <td colspan="2" class="text-end">Pajak:</td>
                 <td class="text-end">Rp0</td>
             </tr>
             <tr>
-                <td colspan="2" class="text-end" style="border-top: 1px dotted #000"><strong>Total
-                        Pembayaran:</strong></td>
+                <td colspan="2" class="text-end" style="border-top: 1px dotted #000">Total
+                    Pembayaran:</td>
                 <td class="text-end" style="border-top: 1px dotted #000">
                     Rp{{ number_format($transaction->jumlah_bayar, 0, ',', '.') }}</td>
             </tr>
             <tr>
-                <td colspan="2" class="text-end"><strong>Kembalian:</strong></td>
-                <td class="text-end">
+                <td style="border-bottom: 1px dotted #000" colspan="2" class="text-end">Kembalian:</td>
+                <td style="border-bottom: 1px dotted #000" class="text-end">
                     Rp{{ number_format($transaction->jumlah_bayar - $transaction->total_harga, 0, ',', '.') }}</td>
             </tr>
         </tfoot>
     </table>
+    <p style="text-align: center;">
+        Terima kasih!
+    </p>
 </body>
 
 </html>

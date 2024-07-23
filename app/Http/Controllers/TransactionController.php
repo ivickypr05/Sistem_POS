@@ -45,22 +45,19 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $carts = Cart::with('product')->where('user_id', Auth::user()->id)->get();
-        // dd($carts);
 
         if ($carts->isEmpty()) {
             return redirect()->back()->with('error', 'Harus menambahkan produk terlebih dahulu');
         }
 
         $jumlah_bayar = $request->input('jumlah_bayar');
-        // dd($jumlah_bayar);
-
         $total_harga = 0;
         $laba = 0;
+
         foreach ($carts as $cart) {
             $total_harga += $cart->product->harga_jual * $cart->jumlah;
             $laba += ($cart->product->harga_jual - $cart->product->harga_beli) * $cart->jumlah;
         }
-        // dd($total_harga);
 
         if ($jumlah_bayar >= $total_harga) {
             $transaction = Transaction::create([
@@ -84,26 +81,30 @@ class TransactionController extends Controller
                     'jumlah' => $cart->jumlah,
                     'subtotal' => $cart->product->harga_jual * $cart->jumlah,
                 ]);
+
                 if ($cart->product->stok < 6) {
                     $produk_minus[] = $cart->product_id;
-                    // dd($produk_minus);
                 }
+
                 // Menghapus entri cart
                 $cart->delete();
             }
-            $data_products = Product::select('kode_produk', 'nama', 'stok')->whereIn('id', $produk_minus)->get();
-            $data = [];
-            foreach ($data_products as $product) {
-                $data[] = [
-                    'kode_produk' => $product->kode_produk,
-                    'nama' => $product->nama,
-                    'stok' => $product->stok
-                ];
-            }
-            // dd($data_products[]);
-            // exit;
-            if ($produk_minus > 0) {
-                // send mail
+
+            if (count($produk_minus) > 0) {
+                $data_products = Product::select('kode_produk', 'nama', 'stok')
+                    ->whereIn('id', $produk_minus)
+                    ->get();
+
+                $data = [];
+                foreach ($data_products as $product) {
+                    $data[] = [
+                        'kode_produk' => $product->kode_produk,
+                        'nama' => $product->nama,
+                        'stok' => $product->stok
+                    ];
+                }
+
+                // Mengirim email jika ada produk dengan stok < 6
                 Mail::to('vickypratama0649@gmail.com')->send(new StockMinus($data));
             }
 
@@ -112,6 +113,7 @@ class TransactionController extends Controller
             return redirect()->back()->with('error', 'Uang Pembayaran tidak Mencukupi');
         }
     }
+
 
 
     /**
